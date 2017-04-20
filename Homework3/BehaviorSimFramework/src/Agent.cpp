@@ -227,31 +227,61 @@ void SIMAgent::InitValues()
 	SIMAgent::KNoise, SIMAgent::KWander, SIMAgent::KAvoid, SIMAgent::TAvoid, SIMAgent::RNeighborhood,
 	SIMAgent::KSeparate, SIMAgent::KAlign, SIMAgent::KCohesion.
 	*********************************************/
-	Kv0 = 0.0;
-	Kp1 = 0.0;
-	Kv1 = 0.0;
-	KArrival = 0.0;
-	KDeparture = 0.0;
-	KNoise = 0.0;
-	KWander = 0.0;
-	KAvoid = 0.0;
-	TAvoid = 0.0;
-	RNeighborhood = 0.0;
-	KSeparate = 0.0;
-	KAlign = 0.0;
-	KCohesion = 0.0;
+
+	//play around with these
+	Kv0 = 10.0; //Nominal velocity- between the actual and standard velocity http://www.tsi.com/uploadedFiles/_Site_Root/Products/Literature/Application_Notes/TI-115A.pdf
+	Kp1 = 90.0; //seems to make the agent walk straighter but walks past if set too low ---maybe position 1
+	Kv1 = 32.0; // maybe veocity one
+	KArrival = 0.5; //
+	KDeparture = 10000.0; //
+	KNoise = 10.0; //random noise for wander
+	KWander = 8.0; // damping term for wander
+	KAvoid = 1.0; //
+	TAvoid = 20.0; //
+	RNeighborhood = 800.0; //
+	KSeparate = 1000.0; //
+	KAlign = 20.0; //
+	KCohesion = 0.05; //
+	
+	//from https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp
+	//Kv0 = 10.0;
+	//Kp1 = 256;
+	//Kv1 = 32;
+	//KArrival = 0.05;
+	//KDeparture = 10000;
+	//KNoise = 10;
+	//KWander = 8;
+	//KAvoid = 1;
+	//TAvoid = 20;
+	//RNeighborhood = 800;
+	//KSeparate = 1000;
+	//KAlign = 20;
+	//KCohesion = 0.05;
 }
 
 /*
 *	You should apply the control rules given desired velocity vd and desired orientation thetad.
 */
-void SIMAgent::Control()
-{
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
+	/*
+	* You should apply the control rules given desired velocity vd and desired orientation thetad.
+	* Velocity control: input[0] = f = m * Kv0 * (vd - v)
+	* Heading control: input[1] = tau = I * ( -Kv1 * thetaDot - Kp1 * theta + Kp1 * thetad)
+	* This function sets input[0] and input[1] appropriately after being called.
+	*/
+	void SIMAgent::Control()
+	{
+		// From Piazza
+		Truncate(vd, -SIMAgent::MaxVelocity, SIMAgent::MaxVelocity);
+		input[0] = SIMAgent::Mass * SIMAgent::Kv0 * (vd - state[2]);
+		Truncate(input[0], -SIMAgent::MaxForce, SIMAgent::MaxForce);
 
-}
+		double dangle = AngleDiff(state[1], thetad);
+		input[1] = SIMAgent::Inertia * (Kp1 * dangle - Kv1 * state[3]);
+		Truncate(input[1], -SIMAgent::MaxTorque, SIMAgent::MaxTorque);
+	}
 
 /*
 *	Compute derivative vector given input and state vectors
@@ -262,6 +292,37 @@ void SIMAgent::FindDeriv()
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
+	//From Original Read Me File
+	//* state[0] is the position of the agent in local body coordinates(almost useless in this project);
+	//* state[1] is the orientation angle of the agent with respect to world(i.e.global) coordinates;
+	//* state[2] is the velocity of the agent in local body coordinates.
+	//* state[3] is the angular velocity of the agent in world/gobal coordinates.
+	
+	//* input[0] is the force in local body coordinates
+	//* input[1] is the torque in local body coordinates
+	//Why is there no force and torque for global??
+	
+	//* deriv[0] is the force in local body coordinates divided by the mass.
+	//* deriv[1] is the torque in local body coordinates divided by the inertia.
+	//* deriv[2] is the velocity of the agent in local body coordinates
+	//* deriv[3] is the angular velocity of the agent in world coordinates
+
+	//From header File
+	//State vector //float state[4];
+	//Input vector //float input[2];
+	//Derivative vector	//float deriv[4];
+	
+	deriv[0] = input[0] / Mass;
+	deriv[1] = input[1] / Inertia;
+	deriv[2] = state[2];
+	deriv[3] = state[3];
+	
+	//Study Group- but I dont think this is right based on the Original Read me informaiton
+	/*deriv[0] = 0;
+	deriv[1] = state[3];
+	deriv[2] = input[0] / Mass;
+	deriv[3] = input[1] / Inertia - state[3];*/ //https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp//
+	//deriv[3] = input[1] / (Inertia - state[3]); //Study Group--noticed this made the agent loop more
 
 }
 
@@ -272,14 +333,29 @@ void SIMAgent::FindDeriv()
 */
 void SIMAgent::UpdateState()
 {
-	/*********************************************
-	// TODO: Add code here
-	*********************************************/
+	for (int i = 0; i < dimState; i++) {
+		state[i] += deriv[i] * deltaT; //Euler's method, where state[i] is the new position, deri[1] is the derivative of the new position and deltaT is the timestep; use i so that it could dynamically change
+	}
+	state[0] = 0.0; //initial state
 
+	//Clamp(state[1], -M_PI, M_PI);
+	ClampAngle(state[1]); //Study Group
+	Truncate(state[2], -SIMAgent::MaxVelocity, SIMAgent::MaxVelocity);
+
+	vec2 GVelocity;
+	GVelocity[0] = state[2] * cos(state[1]);
+	GVelocity[1] = state[2] * sin(state[1]);
+	GPos += GVelocity;
+
+	Truncate(GPos[0], -1.0 * env->groundSize, env->groundSize);
+	Truncate(GPos[1], -1.0 * env->groundSize, env->groundSize);
+
+	Truncate(state[3], -SIMAgent::MaxAngVel, SIMAgent::MaxAngVel);
 }
 
+
 /*
-*	Seek behavior
+*  Seek behavior
 *  Global goal position is in goal
 *  Agent's global position is in GPos
 *  You need to compute the desired velocity and desired orientation
@@ -287,17 +363,38 @@ void SIMAgent::UpdateState()
 *  return a vec2 that represents the goal velocity with its direction being thetad and its norm being vd
 */
 vec2 SIMAgent::Seek()
+//the agent attempts to steer towards a specified target.
 {
 	/*********************************************
 	// TODO: Add code here
-	*********************************************/
-	vec2 tmp;
 
-	return tmp;
+	4/4/2017 Class Notes
+	•	GPos-Global position
+	•	tmp is Vd
+	•	tmp=goal-GPos
+	•	This is a vector tmp[0] tmp[1]
+	•	v.y = tmp[0]
+	•	v.x = tmp[1]
+	•	Arctan in C++ = atan2
+	•	return (cos theta d, sin theta d) part of the answer
+	•	Vec 2 Vn = sim agent max velocity **in class he said Vn but in notes its vd
+	•	Return vec 2
+	•	Return vec2(cos theta d*Vn, sin theta d*Vn)
+	•	Can add checks to make sure the agents aren’t flipped around (not required)
+	https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
+	*********************************************/
+	
+	vec2 tmp;
+	double thetad;
+	tmp = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	tmp.Normalize();
+	thetad = atan2(tmp[1],tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	double vd = SIMAgent::MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
 }
 
 /*
-*	Flee behavior
+*  Flee behavior
 *  Global goal position is in goal
 *  Agent's global position is in GPos
 *  You need to compute the desired velocity and desired orientation
@@ -305,17 +402,31 @@ vec2 SIMAgent::Seek()
 *  return a vec2 that represents the goal velocity with its direction being thetad and its norm being vd
 */
 vec2 SIMAgent::Flee()
+//the agent attempts to steer away from a specified target.
 {
 	/*********************************************
 	// TODO: Add code here
+	
+	4/4/2017 Class Notes
+	•	Times vector by Pi= Thetad*m_Pi in code
+		•	Said to multiply it in class but "add" it in the webcourses
+	•	Go in the opposite direction
+	https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
 	*********************************************/
+	
 	vec2 tmp;
+	double thetad;
+	tmp = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	tmp.Normalize();
+	thetad = atan2(tmp[1], tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	double vd = SIMAgent::MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
+	thetad = thetad + M_PI; //opposite direction; You flee in the opposite direction,  the vector is pointing from the target to the agent.  So it is exactly the same as Seek except you just have add 180 degree to the Seek desired velocity angle 
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
 
-	return tmp;
 }
 
 /*
-*	Arrival behavior
+*  Arrival behavior
 *  Global goal position is in goal
 *  Agent's global position is in GPos
 *  Arrival setting is in SIMAgent::KArrival
@@ -324,17 +435,50 @@ vec2 SIMAgent::Flee()
 *  return a vec2 that represents the goal velocity with its direction being thetad and its norm being vd
 */
 vec2 SIMAgent::Arrival()
+//the agent attempts to steer towards a specified target and slows down when it gets close.
+//Arrival and departure function much like seek and flee, except as the agent approaches the target, it slows down (for departure, the closer it is to the target, the faster it moves away).
 {
 	/*********************************************
 	// TODO: Add code here
-	*********************************************/
-	vec2 tmp;
 
-	return tmp;
+	4/4/2017 Notes Class Notes
+	•	Same set up but now person is “arriving within a circle area around goal
+	•	tmp=goal-Gpos
+	•	dist= tmp.length();
+		•	If (dist>0)
+		•	Theta d=…(same as above)
+		•	Account for radius
+		•	Vn=Maxvelocity*dist/Radius of arrival
+		•	Sim agent:: Maxvelocity;
+		•	Return-check
+			•	Return cos theta*Vn, Sin theta*Vn
+			•	Or return original vector
+	•	Your agent may circle around the goal
+	*********************************************/
+	
+	//study group
+	//subbing tmp for Vd like in class notes doesn't seem to work
+	vec2 tmp;
+	vec2 Vd = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	double dist = Vd.Length();
+	thetad = atan2(Vd[1], Vd[0]); //The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	//vd = abs(Vd)*KArrival //Webcourses
+	vd = abs(dist)*KArrival; //webcourses
+	//vd = Vd.Length()*KArrival; //Study group
+	thetad = thetad + M_PI; //arrival only not in departure
+	double vn = MaxVelocity *(vd / radius);
+	/*if (dist > 0.0) { //Study Group-Do we really need this? Something about the boundry??
+
+		return vec2(cos(thetad)*vd, sin(thetad)*vd);
+	}
+	else {
+		return  vec2(cos(thetad)*vn, sin(thetad)*vn);
+	}*///Then we need to return to the Cartesian coordinates
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 }
 
 /*
-*	Departure behavior
+*  Departure behavior
 *  Global goal position is in goal
 *  Agent's global position is in GPos
 *  Departure setting is in KDeparture
@@ -343,17 +487,36 @@ vec2 SIMAgent::Arrival()
 *  return a vec2 that represents the goal velocity with its direction being thetad and its norm being vd
 */
 vec2 SIMAgent::Departure()
+//the agent attempts to steer away from a specified target and slows down after a point too.
+//Arrival and departure function much like seek and flee, except as the agent approaches the target, it slows down (for departure, the closer it is to the target, the faster it moves away).
 {
 	/*********************************************
 	// TODO: Add code here
-	*********************************************/
-	vec2 tmp;
 
-	return tmp;
+	4/4/2017 Notes Class Notes
+	•	Go in the opposite direction (similar to flee)
+	*********************************************/
+	//study group
+	vec2 tmp;
+	vec2 Vd = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	double dist = Vd.Length();
+	thetad = atan2(Vd[1], Vd[0]); //The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	//vd = abs(Vd)*KDeparture //Webcourses
+	vd = abs(dist)*KDeparture; //webcourses
+	//vd = Vd.Length()*KDeparture; //Study group
+	double vn = MaxVelocity *(vd / radius);//Study Group
+	/*if (dist > 0.0) { //Study Group-Do we really need this? Something about the boundry redius? Is this only for Departure-Assumption based on webcourses
+
+		return vec2(cos(thetad)*vd, sin(thetad)*vd);
+	}
+	else {
+		return  vec2(cos(thetad)*vn, sin(thetad)*vn);
+	}*///Then we need to return to the Cartesian coordinates
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 }
 
 /*
-*	Wander behavior
+*  Wander behavior
 *  VWander is in vWander
 *  V0(nominal velocity) is in v0
 *  Wander setting is in KWander
@@ -362,13 +525,32 @@ vec2 SIMAgent::Departure()
 *  return a vec2 that represents the goal velocity with its direction being thetad and its norm being vd
 */
 vec2 SIMAgent::Wander()
+//Wandering means the agent is moving around randomly.
 {
 	/*********************************************
 	// TODO: Add code here
-	*********************************************/
-	vec2 tmp;
 
+	//From Webcourses
+	// Yet, another way to implement this is to pick a random angle multiply some random noise (Knoise) to the x and y directions of the velocity, and multiply a damping term (KWander).
+	
+	4/4/2017 Notes Class Notes
+	•	Random goal number versus a fixed goal
+	*********************************************/                   
+	
+	//study group
+	vec2 tmp;
+	//double randomangle = double(rand() % 360) / 180.0 * M_PI; //pick random angle
+	//vec2 tmp = vec2(cos(randomangle), sin(randomangle));
+	//vec2 randomnoise = KNoise*tmp; //multiple by random noise
+	//float combineL = sqrt((vWander[0] + randomnoise[0])*(vWander[0] + randomnoise[0]) + (vWander[1] + randomnoise[1])*(vWander[1] + randomnoise[1]));
+	//vWander = KWander / combineL*(vWander + noise); //multiply by KWander???????
+	//vec2 Vdesired = v0 + vWander;
+	//float vd = sqrt(Vdesired[0] * Vdesired[0] + Vdesired[1] * Vdesired[1]);
+	//thetad = atan2(Vdesired[1], Vdesired[0]);
+	//return vec2(cos(thetad)*vd, sin(thetad)*vd);
 	return tmp;
+
+
 }
 
 /*
