@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\markov.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\test_dtmc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\markov.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\TransitionMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3CCDCE38-EA4E-3013-A20B-28056DF095DA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{EE1CDFD7-8DBC-3D00-8891-8750C6B3163D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

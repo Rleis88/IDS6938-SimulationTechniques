@@ -1,11 +1,11 @@
 #include <iostream>
 #include <functional>   
 #include <numeric> 
-#include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <map>
 #include <Eigen\dense>
+#include <queue> //http://www.cplusplus.com/reference/queue/
 
 #include "markov.h"
 #include "TransitionMatrix.h"
@@ -13,6 +13,8 @@
 
 // Hint: Set N - number of simulations low until you have it working
 //       Then set it much much higher, and run in release mode so its faster
+
+
 
 int main() {
 
@@ -31,10 +33,12 @@ int main() {
 	for (unsigned int i = 0; i < N; ++i) {
 		
 		//TODO (add DTMC, and histogram lines.)
+		discreteMC = DTMC(TransitionMatrix, ROLLS, start);
+		++hist[std::round(discreteMC.back())];
 
 		// Code if you wanted to print out results at each step
-		//for (auto elem : discreteMC)
-		//	std::cout << elem << std::endl;
+		for (auto elem : discreteMC)
+		std::cout << elem << std::endl;
 
 	}
 	//Returns an array discreteMC with the states at each step of the discrete-time Markov Chain

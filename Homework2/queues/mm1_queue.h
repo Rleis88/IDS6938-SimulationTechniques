@@ -162,7 +162,7 @@ public:
     
     void plot_results_output() const
     {
-       /* response time comparison */
+       /* response time comparison */ //what is the operational definition of response time?
        ofstream theory_rt;
        theory_rt.open("theory_rt.txt", ios::out|ios::app);
        theory_rt.precision(6);
@@ -174,7 +174,7 @@ public:
        practice_rt << get_mean_response_time() << endl;
        theory_rt << get_expected_response_time() << endl;
 
-       /* waiting time comparison */
+       /* waiting time comparison */ 
        ofstream theory_wt;
        theory_wt.open("theory_wt.txt", ios::out|ios::app);
        theory_wt.precision(6);

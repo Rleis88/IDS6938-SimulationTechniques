@@ -27,3 +27,7 @@
 *.exe
 *.out
 *.app
+
+#User Specific Files
+*.VC.opendb
+*.VC.db

@@ -1,0 +1,21 @@
+﻿  Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/geometry/CMakeLists.txt
+  CMake does not need to re-run because C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\geometry\CMakeFiles\generate.stamp is up-to-date.
+  Scene.cpp
+  particlesystem.cpp
+  Geometry.cpp
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry\Geometry.cpp(56): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'unsigned int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<uint32_t,-1,-1,0,-1,-1>
+          ]
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry\Geometry.cpp(57): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'unsigned int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>
+          ]
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry\Geometry.cpp(58): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'unsigned int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>
+          ]
+  Geometry.vcxproj -> C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\Debug\Geometry.lib

@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{F31B6E88-B8F3-36C2-9B58-179D0A1F51CA}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Visualizer</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Visualizer.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Visualizer</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Visualizer.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Visualizer</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Visualizer.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Visualizer</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Visualizer.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Visualizer</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;_DEBUG;NANOGUI_GLAD;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;_DEBUG;NANOGUI_GLAD;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;NDEBUG;NANOGUI_GLAD;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;NDEBUG;NANOGUI_GLAD;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;NDEBUG;NANOGUI_GLAD;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;NDEBUG;NANOGUI_GLAD;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;NDEBUG;NANOGUI_GLAD;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;__TBB_NO_IMPLICIT_LINKAGE;NDEBUG;NANOGUI_GLAD;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\eigen;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\glm;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glfw\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\include;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\nanovg\src;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\geometry;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\simulationengine;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\tinyobjloader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Users\Becca\Desktop\cmake-3.7.2-win64-x64\bin\cmake.exe "-HC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9" "-BC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build" --check-stamp-file "C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Users\Becca\Desktop\cmake-3.7.2-win64-x64\bin\cmake.exe "-HC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9" "-BC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build" --check-stamp-file "C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Users\Becca\Desktop\cmake-3.7.2-win64-x64\bin\cmake.exe "-HC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9" "-BC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build" --check-stamp-file "C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Users\Becca\Desktop\cmake-3.7.2-win64-x64\bin\cmake.exe "-HC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9" "-BC:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build" --check-stamp-file "C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\ShaderSourceCode.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\helper.hpp" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\theCamera.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\AxisLines.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Points.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\FullScreenQuad.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\mesh.h" />
+    <ClInclude Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Visualizer.h" />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\theCamera.cpp"  />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp"  />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\AxisLines.cpp"  />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Points.cpp"  />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\FullScreenQuad.cpp"  />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\mesh.cpp"  />
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Visualizer.cpp"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build/ZERO_CHECK.vcxproj">
+      <Project>F6005041-EC22-39D7-ABD7-562D1CA5E4BE</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build/geometry/Geometry.vcxproj">
+      <Project>41992AF2-7587-3863-8F1B-9FE03446AC5F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build/simulationengine/SimulationEngine.vcxproj">
+      <Project>C95524F5-8E03-3A79-AB21-28CED2E110E2</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build/external/nanogui/ext_build/glfw/src/glfw.vcxproj">
+      <Project>551573AA-BAE3-304E-BFE8-95A331D5896F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/build/external/nanogui/nanogui.vcxproj">
+      <Project>3794A065-0B78-3E9D-AC40-CC93B0A3EF96</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

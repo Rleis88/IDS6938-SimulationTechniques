@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Discrete1\coin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Discrete1\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{31429C71-83A6-389E-882A-414D97368B9C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,48 @@
+﻿  Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/visualizer/CMakeLists.txt
+  CMake does not need to re-run because C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\visualizer\CMakeFiles\generate.stamp is up-to-date.
+  theCamera.cpp
+  GridLines.cpp
+  AxisLines.cpp
+  Points.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp)
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Points.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Points.cpp)
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\theCamera.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\theCamera.cpp)
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\AxisLines.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\AxisLines.cpp)
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Points.cpp(44): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'uint32_t', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>
+          ]
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp(22): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp(23): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp(24): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp(25): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\GridLines.cpp(74): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'uint32_t', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<uint32_t,-1,-1,0,-1,-1>
+          ]
+  FullScreenQuad.cpp
+  mesh.cpp
+  Visualizer.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\mesh.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\mesh.cpp)
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\FullScreenQuad.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\FullScreenQuad.cpp)
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Visualizer.cpp)
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY' (compiling source file C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\Visualizer.cpp)
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\mesh.cpp(61): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'uint32_t', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<uint32_t,-1,-1,0,-1,-1>
+          ]
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\visualizer\mesh.cpp(95): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'uint32_t', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<uint32_t,-1,-1,0,-1,-1>
+          ]
+  Visualizer.vcxproj -> C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\Debug\Visualizer.lib

@@ -1,0 +1,4 @@
+﻿  random.cpp
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Discrete2\random.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Discrete2\random.cpp(107): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Random.vcxproj -> C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Discrete2\build\Debug\Random.exe

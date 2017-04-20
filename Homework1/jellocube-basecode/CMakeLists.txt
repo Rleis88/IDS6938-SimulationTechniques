@@ -34,6 +34,8 @@ set(Jello_SRCS
   src/vec.h src/vec.cpp
   src/world.h src/world.cpp
   src/jelloMesh.h src/jelloMesh.cpp
+  src/jelloMesh2.h src/jelloMesh2.cpp
+  src/jelloMesh3.h src/jelloMesh3.cpp
 )
 
 add_executable(jello ${Jello_SRCS})

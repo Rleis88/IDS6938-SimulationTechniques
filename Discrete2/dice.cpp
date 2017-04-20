@@ -13,6 +13,7 @@
 int main()
 {
 	// Get a random seed
+	std::srand(time(0)); //(Dawson, 2008)
 
 	//use a random device
 	std::random_device rd;
@@ -26,6 +27,7 @@ int main()
 
 	// Another seed intialization routine (this is just here for future reference for you.)
 	// initialize the random number generator with time-dependent seed
+	// This is because you want your seed to be different each time you run your program and this is based on the current time (Dawson, 2008)
 	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
 	//std::mt19937_64 e2;
@@ -56,7 +58,7 @@ int main()
 
 		// Uncomment if you want to see the values
 		//std::cout << std::fixed << std::setprecision(1) << std::setw(2)
-		//	<< p.first << " -  "<< p.second << std::endl;
+			//<< p.first << " -  "<< p.second << std::endl;
 
 		std::cout << std::fixed << std::setprecision(1) << std::setw(2)
 			<< p.first << "  " << std::string(p.second / (N / 500), '*') << std::endl;
@@ -98,4 +100,6 @@ int main()
 
 	myfile.close();
 
+	//References
+	//Dawson, M. (2008). Beginning C++ Through Game Programming (2nd ed.). Boston. MA: Course Technology
 }

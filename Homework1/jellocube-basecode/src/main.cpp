@@ -8,14 +8,20 @@
 #include <IL/ilut.h>
 
 #include "jelloMesh.h"
+#include "jelloMesh2.h"
+#include "jelloMesh3.h"
 #include "world.h"
+
 
 #define MWIDTH 1280
 #define MHEIGHT 720
 
 JelloMesh theJello;
+JelloMesh2 theJello2;
+JelloMesh3 theJello3;
 Camera theCamera;
-World theWorld("../worlds/ground.xml");
+//World theWorld("../worlds/ground.xml");
+World theWorld("../worlds/cylinders.xml");
 mmc::FpsTracker theFpsTracker;
 
 // UI Helpers
@@ -29,9 +35,9 @@ bool isRecording = false;
 
 void initCamera()
 {
-	double w = 5; 
-	double h = 5; 
-	double d = 5; 
+   double w = theJello.GetWidth()*3;   
+   double h = theJello.GetHeight()*2;   
+   double d = theJello.GetDepth()*2; 
    double angle = 0.5*theCamera.dfltVfov*M_PI/180.0;
    double dist;
    if (w > h) dist = w*0.5/tan(angle);  // aspect is 1, so i can do this
@@ -128,34 +134,60 @@ void onMouseCb(int button, int state, int x, int y)
 
 void onKeyboardCb(unsigned char key, int x, int y)
 {
-   unsigned int mask = 0x0;
+	unsigned int mask = 0x0;
 
-   if (key == ' ') theCamera.reset();
-   else if (key == 27) exit(0); // ESC Key
-   else if (key == '8') theJello.SetIntegrationType(JelloMesh::EULER);
-   else if (key == '9') theJello.SetIntegrationType(JelloMesh::MIDPOINT);
-   else if (key == '0') theJello.SetIntegrationType(JelloMesh::RK4);
-   else if (key == '>') isRunning = true;
-   else if (key == '=') isRunning = false;
-   else if (key == '<') theJello.Reset();
-   else if (key == 'r') isRecording = !isRecording; if (isRecording) theFrameNum = 0;
-   else if (key == '1') mask = theJello.MESH;
-   else if (key == '2') mask = theJello.FORCES;
-   else if (key == '3') mask = theJello.NORMALS;
+	if (key == ' ') theCamera.reset();
+	else if (key == 27) exit(0); // ESC Key
+	else if (key == '8') theJello.SetIntegrationType(JelloMesh::EULER);
+	else if (key == '9') theJello.SetIntegrationType(JelloMesh::MIDPOINT);
+	else if (key == '0') theJello.SetIntegrationType(JelloMesh::RK4);
+	else if (key == '>') isRunning = true;
+	else if (key == '=') isRunning = false;
+	else if (key == '<') theJello.Reset();
+	else if (key == 'r') isRecording = !isRecording; if (isRecording) theFrameNum = 0;
+	else if (key == '1') mask = theJello.MESH;
+	else if (key == '2') mask = theJello.FORCES;
+	else if (key == '3') mask = theJello.NORMALS;
+	else if (key == '4') mask = theJello.STRUCTURAL;
+	else if (key == '5') mask = theJello.SHEAR;
+	else if (key == '6') mask = theJello.BEND;
 
-   if (mask)
-   {
-       if (theJello.GetDrawFlags() & mask)
-       {
-           theJello.SetDrawFlags(theJello.GetDrawFlags() & ~mask);
-       }
-       else
-       {
-           theJello.SetDrawFlags(theJello.GetDrawFlags() | mask);
-       }
-   }
+	if (mask)
+	{
+		if (theJello.GetDrawFlags() & mask)
+		{
+			theJello.SetDrawFlags(theJello.GetDrawFlags() & ~mask);
+		}
+		else
+		{
+			theJello.SetDrawFlags(theJello.GetDrawFlags() | mask);
+		}
 
-   glutPostRedisplay();
+		if (mask)
+		{
+			if (theJello2.GetDrawFlags() & mask)
+			{
+				theJello2.SetDrawFlags(theJello2.GetDrawFlags() & ~mask);
+			}
+			else
+			{
+				theJello2.SetDrawFlags(theJello2.GetDrawFlags() | mask);
+			}
+		}
+		if (mask)
+		{
+			if (theJello3.GetDrawFlags() & mask)
+			{
+				theJello3.SetDrawFlags(theJello3.GetDrawFlags() & ~mask);
+			}
+			else
+			{
+				theJello3.SetDrawFlags(theJello3.GetDrawFlags() | mask);
+			}
+		}
+
+		glutPostRedisplay();
+	}
 }
 
 void onMenuCb(int value)
@@ -176,7 +208,9 @@ void onTimerCb(int value)
    glutTimerFunc(100, onTimerCb, 0);
    if (isRunning) 
    {
-       theJello.Update(0.01, theWorld); 
+       theJello.Update(0.01, theWorld);
+	   theJello2.Update(0.01, theWorld);
+	   theJello3.Update(0.01, theWorld);
        if (isRecording) grabScreen();
    }
 
@@ -216,7 +250,20 @@ void drawOverlay()
      case JelloMesh::MIDPOINT: intstr = "Midpoint"; break;
      case JelloMesh::RK4: intstr = "RK4"; break;
      }
-
+	 char* intstr2;
+	 switch (theJello2.GetIntegrationType())
+	 {
+	 case JelloMesh2::EULER: intstr = "Euler"; break;
+	 case JelloMesh2::MIDPOINT: intstr = "Midpoint"; break;
+	 case JelloMesh2::RK4: intstr = "RK4"; break;
+	 }
+	 char* intstr3;
+	 switch (theJello3.GetIntegrationType())
+	 {
+	 case JelloMesh3::EULER: intstr = "Euler"; break;
+	 case JelloMesh3::MIDPOINT: intstr = "Midpoint"; break;
+	 case JelloMesh3::RK4: intstr = "RK4"; break;
+	 }
      char info[1024];
      sprintf(info, "Framerate: %3.1f %s %s", 
          theFpsTracker.fpsAverage(),
@@ -268,6 +315,8 @@ void onDrawCb()
 
     theWorld.Draw();
     theJello.Draw(cpos);
+	theJello2.Draw(cpos);
+	theJello3.Draw(cpos);
     drawOverlay();
     glutSwapBuffers();
 }
@@ -356,4 +405,5 @@ int main(int argc, char **argv)
     glutMainLoop();
     return 0;             
 }
+
 

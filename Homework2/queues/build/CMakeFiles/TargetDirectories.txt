@@ -1,0 +1,3 @@
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/queues/build/CMakeFiles/MM1.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/queues/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/queues/build/CMakeFiles/ZERO_CHECK.dir

@@ -14,7 +14,7 @@
 
 # define DIM_MAX 2
 
-int dim_num = 1;
+int dim_num = 1; //originally 1 but suggested to be 2
 float *r;
 int seed;
 int seed_in;
@@ -31,8 +31,19 @@ void getNDimQuasiRandomNumber(int *seed, int dim_number, float *r)
 {
 	i4_sobol(dim_number, seed, r);
 }
+//Quasirandom Number Generators can also be called low discrepency or sub random sequence
+//Types of Quasirandom Number Generators (QRNG)
+//Faure
+//Halton Sequence
+//Hammersley Set
+//Niderriter
+//Sobol Sequence ** must use this
+//Random Numbers
+//Aditive Reccurance
+//van der Corput Sequence
+//Poisson disk sampling
 
-
+//(Kider, 2017; Wikimedia Foundation Inc.,2016)
 
 
 int main()
@@ -41,25 +52,24 @@ int main()
 
 	//use a random device
 	std::random_device rd;
+
 	// Another seed intialization routine (this is just here for future reference for you.)
 	// initialize the random number generator with time-dependent seed
-	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
+	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
 	// 2 different ways to get a random starting seed
-	//seed = rd();
+	seed = rd();
 	//seed = ss;
 
-
-
 	// 3) Play with N
-	unsigned int N = 100000;  // number of values generated
+	unsigned int N = 5000;  // number of values generated
 	double randomValue;
 	std::map<int, int> hist; //Counts of discrete values
 	std::vector<double> raw; //raw random values 
 
 
 	for (unsigned int i = 0; i < N; ++i) {
-		randomValue = 0 + getQuasiRandomNumber(&seed) * 100;
+		randomValue = 0 + getQuasiRandomNumber(&seed) * 100;//*100
 
 		++hist[std::round(randomValue)]; // count the values
 		raw.push_back(randomValue);  //push the raw values
@@ -111,4 +121,7 @@ int main()
 
 	myfile.close();
 
+	//References
+	//Kider, J. (2017). Quasi-random generation [Webcourse Page]. Retrieved from Notes Online Web site: https://webcourses.ucf.edu/courses/1246518/pages/quasi-random-generation?module_item_id=10541649
+	//Wikimedia Foundation Inc. (2016) Low-discrepence sequence. Retrived from https://en.wikipedia.org/wiki/Low-discrepancy_sequence
 }

@@ -1,0 +1,22 @@
+# CMake generation dependency list for this directory.
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/external/nanogui/ext/glfw/CMakeLists.txt
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/FindThreads.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CheckLibraryExists.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CheckSymbolExists.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CheckIncludeFile.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CheckIncludeFile.c.in
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/FindPackageHandleStandardArgs.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/FindPackageMessage.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CMakeParseArguments.cmake
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/external/nanogui/ext/glfw/CMake/modules/FindVulkan.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/FindPackageHandleStandardArgs.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/FindPackageMessage.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CMakeParseArguments.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CMakePackageConfigHelpers.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CMakeParseArguments.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/CMakeParseArguments.cmake
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/external/nanogui/ext/glfw/src/glfw3Config.cmake.in
+C:/Users/Becca/Desktop/cmake-3.7.2-win64-x64/share/cmake-3.7/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/external/nanogui/ext/glfw/src/glfw_config.h.in
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/external/nanogui/ext/glfw/src/glfw3.pc.in

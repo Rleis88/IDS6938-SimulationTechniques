@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/CMakeLists.txt
+  CMake does not need to re-run because C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\CMakeFiles\generate.stamp is up-to-date.
+  main.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\ext\glad\include\glad/glad.h(30): note: see previous definition of 'APIENTRY'
+  tester.vcxproj -> C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\Debug\tester.exe

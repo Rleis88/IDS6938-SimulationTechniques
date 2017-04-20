@@ -1,6 +1,5 @@
 #include "markov.h"
 
-
 //Markov simulation functions
 
 std::vector<int> DTMC (Eigen::MatrixXf trans, int steps, int start){

@@ -32,7 +32,7 @@ using namespace std;
 
 enum {VX, VY, VZ, VW};		    // axes
 enum {PA, PB, PC, PD};		    // planes
-enum {RED, GREEN, BLUE};	    // colors
+enum {YELLOW, GREEN, BLUE};	    // colors
 enum {KA, KD, KS, ES};		    // phong coefficients
 
 //////////////////////////////////////////////////////////////////////////

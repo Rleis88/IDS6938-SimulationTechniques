@@ -1,0 +1,23 @@
+﻿  test_dtmc.cpp
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(36): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\homework2\snakesandladders\TransitionMatrix.h(40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\test_dtmc.cpp(37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  DTMC.vcxproj -> C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Homework2\SnakesAndLadders\build\Debug\DTMC.exe

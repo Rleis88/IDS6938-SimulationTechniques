@@ -1,0 +1,4 @@
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete3/Build/CMakeFiles/MarkovDTMC.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete3/Build/CMakeFiles/MarkovCTMC.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete3/Build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete3/Build/CMakeFiles/ZERO_CHECK.dir

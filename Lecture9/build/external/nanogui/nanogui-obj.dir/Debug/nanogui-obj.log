@@ -1,0 +1,44 @@
+﻿  Building Custom Rule C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Lecture9/external/nanogui/CMakeLists.txt
+  CMake does not need to re-run because C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\external\nanogui\CMakeFiles\generate.stamp is up-to-date.
+  Running bin2c
+  nanovg.c
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\stb_truetype.h(2067): warning C4100: 'vsubsample': unreferenced formal parameter
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\stb_image.h(4972): warning C4244: '=': conversion from 'int' to 'stbi_uc', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\stb_image.h(4973): warning C4244: '=': conversion from 'int' to 'stbi_uc', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\stb_image.h(4974): warning C4244: '=': conversion from 'int' to 'stbi_uc', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\stb_image.h(4965): warning C4244: 'initializing': conversion from 'int' to 'stbi__uint16', possible loss of data
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\nanovg.c(268): warning C4701: potentially uninitialized local variable 'sfactor' used
+c:\users\becca\desktop\new fork rleis88\ids6938-simulationtechniques\lecture9\external\nanogui\ext\nanovg\src\nanovg.c(269): warning C4701: potentially uninitialized local variable 'dfactor' used
+  glad.c
+  nanogui_resources.cpp
+  glutil.cpp
+  common.cpp
+  widget.cpp
+  theme.cpp
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\src\glutil.cpp(178): warning C4267: '=': conversion from 'size_t' to 'GLuint', possible loss of data
+C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\external\nanogui\src\glutil.cpp(187): warning C4267: '=': conversion from 'size_t' to 'GLuint', possible loss of data
+  layout.cpp
+  screen.cpp
+  label.cpp
+  window.cpp
+  popup.cpp
+  checkbox.cpp
+  button.cpp
+  popupbutton.cpp
+  combobox.cpp
+  progressbar.cpp
+  slider.cpp
+  messagedialog.cpp
+  textbox.cpp
+  imagepanel.cpp
+  imageview.cpp
+  vscrollpanel.cpp
+  colorwheel.cpp
+  colorpicker.cpp
+  graph.cpp
+  stackedwidget.cpp
+  tabheader.cpp
+  tabwidget.cpp
+  glcanvas.cpp
+  serializer.cpp
+  nanogui-obj.vcxproj -> C:\Users\Becca\Desktop\New Fork Rleis88\IDS6938-SimulationTechniques\Lecture9\build\external\nanogui\nanogui-obj.dir\Debug\nanogui-obj.lib

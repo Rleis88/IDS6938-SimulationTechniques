@@ -1,0 +1,4 @@
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/SnakesAndLadders/build/CMakeFiles/Markov.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/SnakesAndLadders/build/CMakeFiles/DTMC.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/SnakesAndLadders/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Homework2/SnakesAndLadders/build/CMakeFiles/ZERO_CHECK.dir

@@ -74,14 +74,14 @@ void MM1_Queue::initialize()
 {
     if (!initialized_)
     {
-
+	//From slides on Webcourses but went over with study group. Particularly they helped me with expected_server_utilization_^2 which was giving me an error.
       //TODO---------------------------------------------
-      expected_server_utilization_ ;
-      expected_idle_prob_ ;
-      expected_queue_length_ ;
-      expected_number_customers_ ;
-      expected_waiting_time_ ;
-      expected_response_time_ ;
+      expected_server_utilization_ = lambda_/mu_;
+      expected_idle_prob_ = 1 - expected_server_utilization_;
+      expected_queue_length_ = (expected_server_utilization_*expected_server_utilization_)/(expected_idle_prob_);
+      expected_number_customers_ = expected_server_utilization_*expected_idle_prob_*(1/(expected_idle_prob_*expected_idle_prob_));
+      expected_waiting_time_ = expected_server_utilization_/(mu_-lambda_);
+      expected_response_time_ = 1/(mu_ - lambda_);
       // ------------------------------------------------
 
       rnd_arrival.set_rate(lambda_);

@@ -1,0 +1,5 @@
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete1/Build/CMakeFiles/Birthday.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete1/Build/CMakeFiles/CoinToss.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete1/Build/CMakeFiles/Random.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete1/Build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Becca/Desktop/New Fork Rleis88/IDS6938-SimulationTechniques/Discrete1/Build/CMakeFiles/ZERO_CHECK.dir
