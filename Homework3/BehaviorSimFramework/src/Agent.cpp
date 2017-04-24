@@ -235,7 +235,7 @@ void SIMAgent::InitValues()
 	KArrival = 0.5; //
 	KDeparture = 10000.0; //
 	KNoise = 10.0; //random noise for wander
-	KWander = 8.0; // damping term for wander
+	KWander = 8.0; // damping term for wander; how strong or week the wandering force is-how much it changes per frame https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
 	KAvoid = 1.0; //
 	TAvoid = 20.0; //
 	RNeighborhood = 800.0; //
@@ -306,16 +306,17 @@ void SIMAgent::FindDeriv()
 	//* deriv[1] is the torque in local body coordinates divided by the inertia.
 	//* deriv[2] is the velocity of the agent in local body coordinates
 	//* deriv[3] is the angular velocity of the agent in world coordinates
-
-	//From header File
-	//State vector //float state[4];
-	//Input vector //float input[2];
-	//Derivative vector	//float deriv[4];
 	
-	deriv[0] = input[0] / Mass;
-	deriv[1] = input[1] / Inertia;
-	deriv[2] = state[2];
-	deriv[3] = state[3];
+	//tried this code based on original read me file but it doesnt seem to work
+	//deriv[0] = input[0] / Mass;
+	//deriv[1] = input[1] / Inertia;
+	//deriv[2] = state[2];
+	//deriv[3] = state[3];
+
+	deriv[0] = state[2];
+	deriv[1] = state[3];
+	deriv[2] = input[0] / Mass;
+	deriv[3] = input[1] / Inertia;
 	
 	//Study Group- but I dont think this is right based on the Original Read me informaiton
 	/*deriv[0] = 0;
@@ -383,13 +384,13 @@ vec2 SIMAgent::Seek()
 	•	Can add checks to make sure the agents aren’t flipped around (not required)
 	https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
 	*********************************************/
-	
+	//why is this backwards?
 	vec2 tmp;
-	double thetad;
+	//double thetad;
 	tmp = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
 	tmp.Normalize();
 	thetad = atan2(tmp[1],tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
-	double vd = SIMAgent::MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
+	vd = MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
 }
 
@@ -413,14 +414,14 @@ vec2 SIMAgent::Flee()
 	•	Go in the opposite direction
 	https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
 	*********************************************/
-	
+	//why is this backwards?
 	vec2 tmp;
-	double thetad;
-	tmp = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	//double thetad;
+	tmp = GPos-goal; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
 	tmp.Normalize();
 	thetad = atan2(tmp[1], tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
-	double vd = SIMAgent::MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
-	thetad = thetad + M_PI; //opposite direction; You flee in the opposite direction,  the vector is pointing from the target to the agent.  So it is exactly the same as Seek except you just have add 180 degree to the Seek desired velocity angle 
+	vd = MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
+	//thetad = thetad + M_PI; //opposite direction; You flee in the opposite direction,  the vector is pointing from the target to the agent.  So it is exactly the same as Seek except you just have add 180 degree to the Seek desired velocity angle 
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
 
 }
@@ -458,22 +459,32 @@ vec2 SIMAgent::Arrival()
 	
 	//study group
 	//subbing tmp for Vd like in class notes doesn't seem to work
-	vec2 tmp;
-	vec2 Vd = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
-	double dist = Vd.Length();
-	thetad = atan2(Vd[1], Vd[0]); //The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	//vec2 tmp;
+	//vec2 Vd = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	//double dist = Vd.Length();
+	//thetad = atan2(Vd[1], Vd[0]); //The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
 	//vd = abs(Vd)*KArrival //Webcourses
-	vd = abs(dist)*KArrival; //webcourses
+	//vd = abs(dist)*KArrival; //webcourses
 	//vd = Vd.Length()*KArrival; //Study group
-	thetad = thetad + M_PI; //arrival only not in departure
-	double vn = MaxVelocity *(vd / radius);
-	/*if (dist > 0.0) { //Study Group-Do we really need this? Something about the boundry??
+	//thetad = thetad + M_PI; //arrival only, not in departure
+	//double vn = MaxVelocity *(vd / radius);
+	//if (dist > 0.0) { 
 
-		return vec2(cos(thetad)*vd, sin(thetad)*vd);
-	}
-	else {
-		return  vec2(cos(thetad)*vn, sin(thetad)*vn);
-	}*///Then we need to return to the Cartesian coordinates
+	//	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+	//}
+	//else {
+	//	return  vec2(cos(thetad)*vn, sin(thetad)*vn);
+	//}
+	//Then we need to return to the Cartesian coordinates
+	
+	//why is this backwards?
+	vec2 tmp;
+	tmp = goal - GPos;
+	double dist = tmp.Length();
+	vd = abs(dist)*KArrival;
+	Truncate(vd, 0, MaxVelocity);// Truncate (Bevilacqua, 2012b) means to cut off; (value, min, max) "it will not exceed a certain maximum speed . A minimum speed can also be specified but defaults to zero."(Reynolds, 1987).
+	tmp.Normalize();
+	thetad = atan2(tmp[1], tmp[0]);
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 }
 
@@ -497,21 +508,33 @@ vec2 SIMAgent::Departure()
 	•	Go in the opposite direction (similar to flee)
 	*********************************************/
 	//study group
-	vec2 tmp;
-	vec2 Vd = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
-	double dist = Vd.Length();
-	thetad = atan2(Vd[1], Vd[0]); //The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
-	//vd = abs(Vd)*KDeparture //Webcourses
-	vd = abs(dist)*KDeparture; //webcourses
-	//vd = Vd.Length()*KDeparture; //Study group
-	double vn = MaxVelocity *(vd / radius);//Study Group
-	/*if (dist > 0.0) { //Study Group-Do we really need this? Something about the boundry redius? Is this only for Departure-Assumption based on webcourses
+	//vec2 tmp;
+	//vec2 Vd = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
+	//double dist = Vd.Length();
+	//thetad = atan2(Vd[1], Vd[0]); //The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	////vd = abs(Vd)*KDeparture //Webcourses
+	//vd = abs(dist)*KDeparture; //webcourses
+	////vd = Vd.Length()*KDeparture; //Study group
+	//double vn = MaxVelocity *(vd / radius);//Study Group
+	//if (dist > 0.0) { 
 
-		return vec2(cos(thetad)*vd, sin(thetad)*vd);
-	}
-	else {
-		return  vec2(cos(thetad)*vn, sin(thetad)*vn);
-	}*///Then we need to return to the Cartesian coordinates
+	//	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+	//}
+	//else {
+	//	return  vec2(cos(thetad)*vn, sin(thetad)*vn);
+	//}
+	//Then we need to return to the Cartesian coordinates
+	//return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
+	//why is this backwards???
+	vec2 tmp;
+	tmp = GPos-goal;
+	double dist = tmp.Length();
+	vd = abs(dist)*KDeparture;
+	Truncate(vd, 0, MaxVelocity);// Truncate (Bevilacqua, 2012b) means to cut off; (value, min, max) "it will not exceed a certain maximum speed . A minimum speed can also be specified but defaults to zero."(Reynolds, 1987). **what are we scaling (speed) against veocity here?
+	tmp.Normalize();
+	thetad = atan2(tmp[1], tmp[0]);
+	//thetad = thetad + M_PI;
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 }
 
@@ -538,17 +561,63 @@ vec2 SIMAgent::Wander()
 	*********************************************/                   
 	
 	//study group
-	vec2 tmp;
+	//vec2 tmp;
 	//double randomangle = double(rand() % 360) / 180.0 * M_PI; //pick random angle
 	//vec2 tmp = vec2(cos(randomangle), sin(randomangle));
 	//vec2 randomnoise = KNoise*tmp; //multiple by random noise
 	//float combineL = sqrt((vWander[0] + randomnoise[0])*(vWander[0] + randomnoise[0]) + (vWander[1] + randomnoise[1])*(vWander[1] + randomnoise[1]));
-	//vWander = KWander / combineL*(vWander + noise); //multiply by KWander???????
+	//vWander = KWander / combineL*(vWander + randomnoise); //multiply by KWander???????
 	//vec2 Vdesired = v0 + vWander;
 	//float vd = sqrt(Vdesired[0] * Vdesired[0] + Vdesired[1] * Vdesired[1]);
 	//thetad = atan2(Vdesired[1], Vdesired[0]);
 	//return vec2(cos(thetad)*vd, sin(thetad)*vd);
-	return tmp;
+	//return tmp;
+
+	//Needed in Wander behavior-from header file
+	//Wander velocity
+	//vec2 vWander;
+	//Nominal velocity
+	//vec2 v0;
+
+	vec2 tmp;
+	//vec2 CC;
+	//vec2 displace;
+
+	//Calculate Circle Center
+	//tmp = goal - GPos;
+	//CC = tmp; //create circle center clone
+	//CC.Normalize(); //normalize
+	//CC*tmp;//scale by circle distance
+
+	//Calculate Displacement forces
+	//displace = displace*radius;
+
+	//Randomly change vector direction
+	//from above
+	//could also implement random number generator from HW2---will do this if I have time
+	float angle = float(rand() % 360) / 180.0 * M_PI;
+	v0[0] = cos(angle) * MaxVelocity / 2.0;
+	v0[1] = sin(angle) * MaxVelocity / 2.0;
+
+	//Change wander angle for next frame
+	//from above
+	//could also implement random number generator from HW2---will do this if I have time
+	float angle = float(rand() % 360) / 180.0 * M_PI;
+	vWander[0] = cos(angle) * KWander;
+	vWander[1] = sin(angle) * KWander;
+	
+	//Calculate and return wander https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
+	//steering = wander()
+	//steering = truncate(steering, max_force) //in control and update position
+	//steering = steering / mass //in control and update position
+	//velocity = truncate(velocity + steering, max_speed) //in control and update position
+	//position = position + velocity //in control and update position
+	thetad = atan2(tmp[1], tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	vd = MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
+	
+
+
 
 
 }
