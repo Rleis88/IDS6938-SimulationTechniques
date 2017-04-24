@@ -85,6 +85,7 @@ Although not the focus of the present assignment, there are alteratives to the B
  The "boids" or agents similate a "flight-like" pattern by taking incremental "steps" or moves ([Reynolds,1987](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db)), modeled uing Euler's Method (which we also learned and integrated into HW 1; [Bevilacqua, 2012a](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)).
 
 ![](images/Euler.JPG?raw=true)
+
 [Source](https://webcourses.ucf.edu/courses/1246518/pages/eulers-method?module_item_id=10526148)
 
 To calculate Eulers method, we need to determine the *derivative* and the *initial value*. We will also need a *time step* to calculate Euler; however, this is provided for us in the based code. I believe the time step is located in the Agent.h file under member variables as *deltaT*. This is confirmed in the code given by Dr. Kider for *SIMAgent::UpdateState()* which I will adress later in this document.
@@ -182,6 +183,7 @@ Reynold's suggested first to simulate the behavior of an individual agent ([Reyn
 *Seeking* behavior is defined as "the agent attempts to steer towards a specified target, " ([Kider, 2017b](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616)).
 
 ![](images/steering_forces_seek_path.png?raw=true)
+
 [Source](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)
 
 Below is the code I implemented for *seek*.
@@ -195,13 +197,14 @@ Below is the code I implemented for *seek*.
 
 Where *tmp* is the desired velocity to the new "goal" position, *thetad* is the desired orientation, and *vd* is the max velocity. The desired velocity is "the shortest path from the current position to the target" ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)). The velocity vector for seek is calculated as: velocity = normalize(target - position) x max_velocity, ([Bevilacqua, 2012a](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)), which is why tmp is normalized in the code presented above. For *thetad* "we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties," ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)). The max velocity calculates how quickly the agent is moving ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)). Then the code should return the cartesian coordinates for the agent to go to ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)), which can be seen in the return statment.
 
-*To view the notes associated with this code, please view my edited Agent.cpp file. I summarized the C++ notes for readability. We went through this peice of code during study group on 4/13/2017.*
+To view the notes associated with this code, please view my edited Agent.cpp file. I summarized the C++ notes for readability. We went through this peice of code during study group on 4/13/2017.
 
 #### [Flee](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616)
 
 *Fleeing* behvaior is defined as "the agent attempts to steer away from a specified target," ([Kider, 2017b](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616)).
 
 ![](images/steering_forces_flee_path.png?raw=true)
+
 [Source](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303)
 
 Below is the code I implemented for *flee*.
@@ -215,7 +218,7 @@ Below is the code I implemented for *flee*.
 
 The code for flee is similar to the code for seek. However, to account for the opposite direction/orientation, I could add pi to thetad to achieve the new desired velocity, which can be denoted as  *thetad = thetad + M_PI*, ([Kider, 2017b](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616)). Alternativly, I could also switch the *GPos* and *goal* withing *tmp* instead of adding pi, ([Bevilacqua, 2012b](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303)). I tried both and it seems to work. I chose to use the second method as it was easier for me to understand.
 
-*To view the notes associated with this code, please view my edited Agent.cpp file. I summarized the C++ notes for readability. We went through this peice of code during study group on 4/13/2017.*
+To view the notes associated with this code, please view my edited Agent.cpp file. I summarized the C++ notes for readability. We went through this peice of code during study group on 4/13/2017.
 
 #### [Arrival](https://webcourses.ucf.edu/courses/1246518/pages/arrival-and-departure?module_item_id=10571664)
 
@@ -224,6 +227,7 @@ The code for flee is similar to the code for seek. However, to account for the o
 "The arrival behavior prevents the character from moving through the target. It makes the character slow down as it approaches the destination, eventually stopping at the target," ([Bevilacqua, 2012b](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303)). As seen in the figure below, the agent will approach the target similarly to the *seek* function presented above, once the agent get within a certian distance, it will slow until it reaches the target, ([Bevilacqua, 2012b](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303)).
 
 ![](images/arrival.png?raw=true)
+
 [Source](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303)
 
 Below is the code I implemented for *arrival*.
@@ -260,9 +264,10 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 *Wander* is defined as "the agent is moving around randomly," ([Kider, 2017e](https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154)).
 
-There may be an instance where one may want non-player characters (NPCs) to "wander" about before recieving an action. This may occure in an an open field or within a building prior to an event that triggers a different type of behavior. In this instance I could use one of two different approaches. One is to utilize the seek funtion with randomness introduced ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)). "The seek algorithm can be used to steer the agent. Imagine the agent is in the center of a circle, in the simplest case, towards random points on the circumference," ([Kider, 2017e](https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154). However, this approach instructs the agent to again behave abruptly, moving in one direction and then immediatly turning ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)). However, using another method which reduces this will allow me to be able to program more natural movement. This could be acieved by using small displacements each frame rate so that each frame has a slightly different angle, appearing as if the agent is moving slowly, ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)).
+There may be an instance where one may want non-player characters (NPCs) to "wander" about before recieving an action. This may occure in an an open field or within a building prior to an event that triggers a different type of behavior. In this instance I could use one of two different approaches. One is to utilize the seek funtion with randomness introduced ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)). "The seek algorithm can be used to steer the agent. Imagine the agent is in the center of a circle, in the simplest case, towards random points on the circumference," ([Kider, 2017e](https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154)). However, this approach instructs the agent to again behave abruptly, moving in one direction and then immediatly turning ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)). However, using another method which reduces this will allow me to be able to program more natural movement. This could be acieved by using small displacements each frame rate so that each frame has a slightly different angle, appearing as if the agent is moving slowly, ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)).
 
 ![](images/wander_displacement_force.png?raw=true)
+
 [Source](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-16243)
 
 Below is the code I implemented for *wander*.
@@ -280,6 +285,7 @@ There are two different methods approached to program obstical avoidance, the *f
 **Steer-To-Avoid Approach**- In the steer-to-avoid approach the agent will acount for only the object in from of it. The edge of the obstical is used and the agent is directed to stay one boyd length away from the edge, ([Prinston, 2012](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf)).
 
 ![](images/avoid.png?raw=true)
+
 [Source](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777)
 
 Below is the code I implemented for *avoid*.
@@ -344,7 +350,8 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 
 ## References
 
-###Literature and Online Sources
+### Literature and Online Sources
+
 *Citations are numbered by the order they were put in the document rather than the order they appear in.*
 
 * Bevilacqua, F. (2012a). [Understanding Steering Behaviors: Seek](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849

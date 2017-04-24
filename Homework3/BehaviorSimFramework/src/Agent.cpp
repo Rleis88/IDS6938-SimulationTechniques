@@ -229,11 +229,11 @@ void SIMAgent::InitValues()
 	*********************************************/
 
 	//play around with these
-	Kv0 = 10.0; //Nominal velocity- between the actual and standard velocity http://www.tsi.com/uploadedFiles/_Site_Root/Products/Literature/Application_Notes/TI-115A.pdf
-	Kp1 = 90.0; //seems to make the agent walk straighter but walks past if set too low ---maybe position 1
-	Kv1 = 32.0; // maybe veocity one
-	KArrival = 0.5; //
-	KDeparture = 10000.0; //
+	Kv0 = 10.0; //
+	Kp1 = -90.0; //seems to make the agent walk straighter but walks past if set too low; negative values orient the agent in the correct direct for some reason and also less erratic movement.
+	Kv1 = 40.0; // Heading -seems to make the radius of the circle either bigger or smaller
+	KArrival = 0.1; //makes it slow the closer it gets to the target
+	KDeparture = 0.5; //makes it slow the closer to the target and faster the farther away
 	KNoise = 10.0; //random noise for wander
 	KWander = 8.0; // damping term for wander; how strong or week the wandering force is-how much it changes per frame https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
 	KAvoid = 1.0; //
@@ -595,16 +595,16 @@ vec2 SIMAgent::Wander()
 	//Randomly change vector direction
 	//from above
 	//could also implement random number generator from HW2---will do this if I have time
-	float angle = float(rand() % 360) / 180.0 * M_PI;
-	v0[0] = cos(angle) * MaxVelocity / 2.0;
-	v0[1] = sin(angle) * MaxVelocity / 2.0;
+	//float angle = float(rand() % 360) / 180.0 * M_PI;
+	//v0[0] = cos(angle) * MaxVelocity / 2.0;
+	//v0[1] = sin(angle) * MaxVelocity / 2.0;
 
 	//Change wander angle for next frame
 	//from above
 	//could also implement random number generator from HW2---will do this if I have time
-	float angle = float(rand() % 360) / 180.0 * M_PI;
-	vWander[0] = cos(angle) * KWander;
-	vWander[1] = sin(angle) * KWander;
+	//float angle = float(rand() % 360) / 180.0 * M_PI;
+	//vWander[0] = cos(angle) * KWander;
+	//vWander[1] = sin(angle) * KWander;
 	
 	//Calculate and return wander https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
 	//steering = wander()
@@ -612,10 +612,10 @@ vec2 SIMAgent::Wander()
 	//steering = steering / mass //in control and update position
 	//velocity = truncate(velocity + steering, max_speed) //in control and update position
 	//position = position + velocity //in control and update position
-	thetad = atan2(tmp[1], tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
-	vd = MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
-	return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
-	
+	//thetad = atan2(tmp[1], tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
+	//vd = MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
+	//return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
+	return tmp;
 
 
 
