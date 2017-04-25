@@ -310,16 +310,25 @@ Pursuit| Evade
 
 ([Source](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946))
 
-More individual behaviors ([Prinston, 2012](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf)):
+More individual behaviors ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/); [Prinston, 2012](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf)):
 * Containment
 * Wall Following
 * Path Following
+* Offset Pursuit
+* Flow Following
+* Unaligned Collision Avoidance
 
 Wall Following and Containment| Path Following
 -------- | --------
 ![](images/wall.png?raw=true)|![](images/path.png?raw=true)
 
 ([Source](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf))
+
+Offset Pursuit| Flow Following| Unaligned Collision Avoidance
+-------- | -------- | --------
+![](images/off.png?raw=true)|![](images/flowfield.png?raw=true) |![](images/unaligned.png?raw=true)
+
+([Source](http://www.red3d.com/cwr/steer/gdc99/))
 
 *You will see more of these behaviors later in the Anylogic Models*
 
@@ -334,6 +343,8 @@ Separation is used to allow agents to disperse and avoid crowding ([Reynolds, 19
 ![](images/separation.gif?raw=true)
 
 [Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
+
+Below is the code I implemented for *seperation*.
 
 	vec2 tmp;
 	vec2 V = vec2(0.0, 0.0);
@@ -375,6 +386,8 @@ Cohesion is used to group the characters ([Reynolds, 1999](http://www.red3d.com/
 
 [Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
+Below is the code I implemented for *cohesion*.
+
     	vec2 tmp;
 	vec2 sum;
 	for (int i = 0; i< agents.size(); i++) {
@@ -403,6 +416,8 @@ Alignment is used to orient (heading) all of the agents toward the same directio
 
 [Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
+Below is the code I implemented for *allignment*.
+
 	vec2 tmp;
 	vec2 sum;
 	for (int i = 0; i < agents.size(); i++) {
@@ -420,6 +435,8 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 #### [Flocking](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
 
+Below is the code I implemented for *flocking*.
+
     vec2 tmp;
 	vec2 s = Separation();
 	vec2 a = Alignment();
@@ -427,6 +444,8 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 	return tmp;
 
 #### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
+
+Below is the code I implemented for *leader following*.
 
 
 Limited information- based off of the velocity of the other agents -- Is this why there is a leader in the group behaviors
