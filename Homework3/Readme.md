@@ -94,7 +94,7 @@ To calculate Eulers method, we need to determine the *derivative* and the *initi
 
 #### Find the Derivative
 
-To implement *SIMAgent::FindDeriv()* I first looked up some example code. I found [this resource](https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp) to use as a starting point. A group of students and I also went through this during study group on 4/13/2017. However, based on the informaiton provided in the original Readme.md file, I believe the code we collaborated on in the study group was incorrect (or at least partially incorrect). However, using the informaiton from the original Readme file, my agent did not move at all. I played around with it wrote it in the *order* it was presented in the original read me file rather than following it completely. This seemed to work. To view more informaiton about the code we tried please see the Agent.cpp file under *SIMAgent::FindDeriv()*. Here you can see the information and additional notes commented out.
+To implement *SIMAgent::FindDeriv()* I first looked up some example code. I found [this resource](https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp) to use as a starting point. A group of students and I also went through this during study group on 4/13/2017. However, based on the informaiton provided in the original Readme.md file, I believe the code we collaborated on in the study group was incorrect (or at least partially incorrect). However, using the informaiton from the original Readme file, my agent did not move at all. I played around with it wrote it in the *order* it was presented in the original read me file rather than following it completely. This seemed to work.  This order was confirmed by [this Piazza post](https://webcourses.ucf.edu/courses/1246518/external_tools/11900). To view more informaiton about the code we tried please see the Agent.cpp file under *SIMAgent::FindDeriv()*. Here you can see the information and additional notes commented out.
 
 Below are the derivative vectors implemented in my code.
 
@@ -321,10 +321,19 @@ Wall Following and Containment| Path Following
 
 ([Source](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf))
 
+*You will see more of these behaviors later in the Anylogic Models*
+
 ### 1.c) Group Behaviors:
 Note: Each section title is linked to the corresponding WebCourses URL.
 #### [Seperation](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
-"(a) separation, which steers a boid away from its neighbors; Behavioral animation PDF article
+
+*Separation* is defined as "steer to avoid crowding local flockmates," ([Kider, 2017f](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)).
+
+Separation is used to allow agents to disperse and avoid crowding ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). To implement seperation one can use two different methods for determining thecloses agent: (1) to use an exhaustive search to find the sum of all the other agents' positions, or (2) to use a local search to find the position of the closest neighbor and comparing that to the characters position ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Then I would apply a repulsion force by "subtracting the position of our character and the nearby character, normalizing, and then applying a 1/r weighting," ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Then I return the coordinates. This can be seen in the code below
+
+![](images/separation.gif?raw=true)
+
+[Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
 	vec2 tmp;
 	vec2 V = vec2(0.0, 0.0);
@@ -353,9 +362,18 @@ Note: Each section title is linked to the corresponding WebCourses URL.
 	Truncate(vd, 0, MaxVelocity);
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. I tried two different methods to implement seperation. We went over these two different methods in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to. Out of the two methods we tried, I found that using a method which utilized X and Y seperatly rather than treating it like a vector worked better. I ended up working on seperation, cohesion, and alignment simultaneously. It was easiest to get alignment and then work on the other two.
+
 
 #### [Cohesion](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
-(c) cohesion, which steers the boid toward the average position of its neighbors [Reyn87]."  Behavioral animation PDF article
+
+*Cohesion* can be defined as "Steer to move toward the average position of local flockmates," ([Kider, 2017f](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)).
+
+Cohesion is used to group the characters ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). To implement cohesion, one can use one of the same two methods noted in seperation for finding the position of the other agents ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Then use the seek function as a base to have all of the characters group toward the average position ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)).
+
+![](images/cohesion.gif?raw=true)
+
+[Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
 	vec2 tmp;
 	vec2 sum;
@@ -370,7 +388,13 @@ Note: Each section title is linked to the corresponding WebCourses URL.
 	Truncate(vd, 0, MaxVelocity);
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over cohesion in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to.
+
 #### [Alignment](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
+
+![](images/alignment.gif?raw=true)
+
+[Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
 	vec2 tmp;
 	vec2 sum;
@@ -388,7 +412,6 @@ Note: Each section title is linked to the corresponding WebCourses URL.
 	thetad = atan2(tmp[1], tmp[0]);
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
-(b) alignment, which steers a boid such that its heading aligns with its neighbors;  Behavioral animation PDF article
 #### [Flocking](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
 
     vec2 tmp;
@@ -435,6 +458,8 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 
 * Bevilacqua, F. (2012e). [Understanding Steering Behaviors: Queue](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365
 
+* Flemhead-d3lc535 (n.d.). [A Maze](http://pre13.deviantart.net/2b52/th/pre/i/2011/188/3/e/a_maze_____by_flemhead-d3lc535.jpg). Retrived from http://pre13.deviantart.net/2b52/th/pre/i/2011/188/3/e/a_maze_____by_flemhead-d3lc535.jpg
+
 * Kider, J. (2017a). [Boids](https://webcourses.ucf.edu/courses/1246518/pages/boids?module_item_id=10564246) [Webcourse Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/boids?module_item_id=10564246
 
 * Kider, J. (2017b). [Seek and Flee](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616) [Webcourses Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
@@ -445,13 +470,15 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 
 * Kider, J. (2017e). [Wander and Avoid](https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154) [Webcourses Module]. Retrived from https:https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154
 
-* Reynods, C. W. (1987). [Flocks, heards, and schools: A distributed behvaioral model](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db). *Computer Graphics, 21*(4), p. 25-34.
+* Kider, J. (2017f). [Separation, Cohesion, and Alignment](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478) [Webcourses Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478
 
 * Prinston (2012). [Boids COS 426](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf). Retrived from http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf
 
-* [Maze](https://www.bing.com/images/search?view=detailV2&ccid=RC36Xmth&id=75F0B2DFE037AAED3F66AA8ABF44C38C5FE859F4&q=maze&simid=608014100339818874&selectedIndex=25&ajaxhist=0)
+* Reynolds, C. W. (1987). [Flocks, heards, and schools: A distributed behvaioral model](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db). *Computer Graphics, 21*(4), p. 25-34.
 
-* [Base Code Exmample](https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp)
+* Reynolds, C. W. (1999). [Steering Behaviors For Autonomous Characters](http://www.red3d.com/cwr/steer/gdc99/). Retrived from http://www.red3d.com/cwr/steer/gdc99/
+
+* Shijingliu (2014). [Agent.cpp](https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp). Retrived at https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp.
 
 * Wikimedia Foundation, Inc., (2017a).[Velocity](https://en.wikipedia.org/wiki/Velocity). Retrived from https://en.wikipedia.org/wiki/Velocity
 
@@ -476,18 +503,9 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 * http://www.red3d.com/cwr/boids/
 
 
-## To Read
-
-General
-* http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db
-* http://www.red3d.com/cwr/papers/1999/gdc99steer.pdf
-* Behavioral Animation for Maya Particles Using Steering Forces
+## To Read/Review
 * https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-path-following--gamedev-8769
 * https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-leader-following--gamedev-10810
 * https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777
-
-Obstical Avoidance
 * http://www.red3d.com/cwr/nobump/nobump.html
-
-Anylogic Boids
 * https://runthemodel.com/models/204/
