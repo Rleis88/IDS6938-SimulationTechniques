@@ -833,8 +833,45 @@ vec2 SIMAgent::Leader()
 	*********************************************/
 	//From Webcourses
 	//designates leader but doesnt follow yet
+
+	//Study Group 4/24/2017
+	//vec2 tmp;
+	//vec2 s = Separation();
+	//vec2 a = Arrival();
+	//return tmp;
+
+	//Study Group 4/24/2017 but adjusted based on information from Webcourses
+	//vec3 tmp = KSeparate*Separation() + KArrival*Arrival();
+	//return tmp;
+
 	vec2 tmp;
-	vec2 s = Separation();
-	vec2 a = Alignment();
+	if (GPos == agents[0]->GPos) // Designate Leader-https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp
+	{
+		return Seek();
+	}
+	else
+	{
+		//Leader X and Y Coordinates
+		vec2 V = vec2(0.0, 0.0); 
+		float pX = 0.0;
+		float pY = 0.0;
+		vec2 pV;
+
+		pX = agents[0]->GPos[0];
+		pY = agents[0]->GPos[1];
+		pV = vec2(pX, pY);
+
+		//Seek leader
+		tmp = pV - GPos;
+		tmp.Normalize();
+		thetad = atan2(tmp[1], tmp[0]);
+		vd = MaxVelocity;
+		return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
+		//Follow one body length behind
+		tmp = agents[0]->GPos - GPos;
+		vec2 s = Separation();
+		vec2 a = Arrival();
+	}
 	return tmp;
 }

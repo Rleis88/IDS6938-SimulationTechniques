@@ -1,8 +1,1 @@
-﻿  Agent.cpp
-C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afx.h(38): warning C4996: 'MBCS_Support_Deprecated_In_MFC': MBCS support in MFC is deprecated and may be removed in a future version of MFC.
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afx.h(33): note: see declaration of 'MBCS_Support_Deprecated_In_MFC'
-  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-C:\Users\Becca\Desktop\Rleis88 Fork\IDS6938-SimulationTechniques\Homework3\BehaviorSimFramework\src\Agent.cpp(681): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Becca\Desktop\Rleis88 Fork\IDS6938-SimulationTechniques\Homework3\BehaviorSimFramework\src\Agent.cpp(747): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Becca\Desktop\Rleis88 Fork\IDS6938-SimulationTechniques\Homework3\BehaviorSimFramework\src\Agent.cpp(781): warning C4018: '<': signed/unsigned mismatch
-  Flocking.vcxproj -> C:\Users\Becca\Desktop\Rleis88 Fork\IDS6938-SimulationTechniques\Homework3\BehaviorSimFramework\build\Debug\Flocking.exe
+﻿  Flocking.vcxproj -> C:\Users\Becca\Desktop\Rleis88 Fork\IDS6938-SimulationTechniques\Homework3\BehaviorSimFramework\build\Debug\Flocking.exe

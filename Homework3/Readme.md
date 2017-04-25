@@ -330,7 +330,7 @@ Offset Pursuit| Flow Following| Unaligned Collision Avoidance
 
 ([Source](http://www.red3d.com/cwr/steer/gdc99/))
 
-*You will see more of these behaviors later in the Anylogic Models*
+*You will see some of these behaviors later in the Anylogic Models*
 
 ### 1.c) Group Behaviors:
 Note: Each section title is linked to the corresponding WebCourses URL.
@@ -443,12 +443,45 @@ Below is the code I implemented for *flocking*.
 	vec2 c = Cohesion();
 	return tmp;
 
-#### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
+#### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?![](images/alignment.gif?raw=true)
+
+
+![](images/leader.png?raw=true)
+
+[Source](http://www.red3d.com/cwr/steer/gdc99/)
 
 Below is the code I implemented for *leader following*.
 
+	vec2 tmp;
+	if (GPos == agents[0]->GPos)
+	{
+		return Seek();
+	}
+	else
+	{
+		vec2 V = vec2(0.0, 0.0);
+		float pX = 0.0;
+		float pY = 0.0;
+		vec2 pV;
 
-Limited information- based off of the velocity of the other agents -- Is this why there is a leader in the group behaviors
+		pX = agents[0]->GPos[0];
+		pY = agents[0]->GPos[1];
+		pV = vec2(pX, pY);
+
+		tmp = pV - GPos;
+		tmp.Normalize();
+		thetad = atan2(tmp[1], tmp[0]);
+		vd = MaxVelocity;
+		return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
+		tmp = agents[0]->GPos - GPos;
+		vec2 s = Separation();
+		vec2 a = Arrival();
+	}
+	return tmp;
+
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over alignment in the Study Group on 4/24/2017. I altered the code we went over after the study group becuse the leader following did not work at all using the code from the study group. To try and rework the code I used Shijingliu (2014) as an example. I used this information to figure out how to designate the leader. Then I coded the leader to seak the target. I then coded the remaining agents to seek the leader (using the leader's X and Y coordinates) and then follow behing the leader by one body length. Then I called the separation and arrival functions as instructed by Kider ([2017g](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)). I did not implement the rectangle in front of the leader as described by Reynolds ([1999](http://www.red3d.com/cwr/steer/gdc99/)) but with the agents seeking the leader, it seemed redundant.
+
 
 #### Other Group Behaviors Include:
 * **Queueing**- In this instance, is defined as "is the process of standing in line, forming a row of characters that are patiently waiting to arrive somewhere," [Bevilacqua, 2012e](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365).
@@ -497,6 +530,8 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 
 * Kider, J. (2017f). [Separation, Cohesion, and Alignment](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478) [Webcourses Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478
 
+* Kider, J. (2017g). [Flocking and Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471) [Webcourses Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471
+
 * Prinston (2012). [Boids COS 426](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf). Retrived from http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf
 
 * Reynolds, C. W. (1987). [Flocks, heards, and schools: A distributed behvaioral model](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db). *Computer Graphics, 21*(4), p. 25-34.
@@ -512,6 +547,8 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 * Wikimedia Foundation, Inc., (2017c). [Agent-based model](https://en.wikipedia.org/wiki/Agent-based_model). Retrived from https://en.wikipedia.org/wiki/Agent-based_model
 
 ### Study Group
+*Overall, I think the study groups are helpful to get a good head start on the different parts of the code but I defintly spent a good amount of time on the code myself to make sure it worked properly.*
+
 * 4/13/2017
 *Note: I'm not 100% sure who all was in this group since I attended via skype (audio only). These we just the voices I could hear.*
 	* Keith MacArthur
