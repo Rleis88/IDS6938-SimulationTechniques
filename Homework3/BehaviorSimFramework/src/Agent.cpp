@@ -2,6 +2,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+//https://www.youtube.com/watch?v=tEGR6NN-cQc
+
 #include "stdafx.h"
 #include "Behavior.h"
 #include "Agent.h"
@@ -238,10 +240,10 @@ void SIMAgent::InitValues()
 	KWander = 8.0; // damping term for wander; how strong or week the wandering force is-how much it changes per frame https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
 	KAvoid = 1.0; //
 	TAvoid = 20.0; //
-	RNeighborhood = 800.0; //
-	KSeparate = 1000.0; //
-	KAlign = 20.0; //
-	KCohesion = 0.05; //
+	RNeighborhood = 5000.0; // radius to neighbor; also seems to slow down agents to stop in sep
+	KSeparate = 5000.0; // slow down agents to stop in sep
+	KAlign = 5000.0; //
+	KCohesion = 5000.0; //
 	
 	//from https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp
 	//Kv0 = 10.0;
@@ -384,7 +386,7 @@ vec2 SIMAgent::Seek()
 	•	Can add checks to make sure the agents aren’t flipped around (not required)
 	https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
 	*********************************************/
-	//why is this backwards?
+
 	vec2 tmp;
 	//double thetad;
 	tmp = goal - GPos; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
@@ -414,7 +416,7 @@ vec2 SIMAgent::Flee()
 	•	Go in the opposite direction
 	https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
 	*********************************************/
-	//why is this backwards?
+
 	vec2 tmp;
 	//double thetad;
 	tmp = GPos-goal; //desired velocity; To seek the first thing we want to look is what is the Desired Velocity - the shortest path from the current position to the target.
@@ -477,7 +479,7 @@ vec2 SIMAgent::Arrival()
 	//}
 	//Then we need to return to the Cartesian coordinates
 	
-	//why is this backwards?
+
 	vec2 tmp;
 	tmp = goal - GPos;
 	double dist = tmp.Length();
@@ -526,7 +528,7 @@ vec2 SIMAgent::Departure()
 	//Then we need to return to the Cartesian coordinates
 	//return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
-	//why is this backwards???
+
 	vec2 tmp;
 	tmp = GPos-goal;
 	double dist = tmp.Length();
@@ -560,7 +562,7 @@ vec2 SIMAgent::Wander()
 	•	Random goal number versus a fixed goal
 	*********************************************/                   
 	
-	//study group
+	//study group-not comfortable using this
 	//vec2 tmp;
 	//double randomangle = double(rand() % 360) / 180.0 * M_PI; //pick random angle
 	//vec2 tmp = vec2(cos(randomangle), sin(randomangle));
@@ -573,13 +575,9 @@ vec2 SIMAgent::Wander()
 	//return vec2(cos(thetad)*vd, sin(thetad)*vd);
 	//return tmp;
 
-	//Needed in Wander behavior-from header file
-	//Wander velocity
-	//vec2 vWander;
-	//Nominal velocity
-	//vec2 v0;
 
-	vec2 tmp;
+	//Didnt work-tried on my own using method in https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
+	//vec2 tmp;
 	//vec2 CC;
 	//vec2 displace;
 
@@ -615,10 +613,15 @@ vec2 SIMAgent::Wander()
 	//thetad = atan2(tmp[1], tmp[0]); //desired orientation; The next parameter we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties 
 	//vd = MaxVelocity; //We also define how fast the agent moves in general, their MaxVelocity
 	//return vec2(cos(thetad)*vd, sin(thetad)*vd);//Then we need to return to the Cartesian coordinates
+	//return tmp;
+
+	//method suggested on Webcourses and http://www.futuredatalab.com/steeringbehaviors/
+	vec2 tmp;
+	float angle = float(rand() % 360) / 180.0 * M_PI;
+	vd = MaxVelocity; //doesnt need to slow down so ue the vd from seek and flee
+	thetad = angle;
+	tmp = vec2(cos(thetad)*vd*KNoise, sin(thetad)*vd*KNoise)*KWander;
 	return tmp;
-
-
-
 
 }
 
@@ -657,10 +660,66 @@ vec2 SIMAgent::Separation()
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
-	vec2 tmp;
+	//From Webcourses
+	//SIMAgent::agents.size()   will tell you how many agents are currently in the system.
+		//exhaustive search
+	//SIMAgent*temp = SIMAgent::agents[i]   calls an agent that is a local agent.
+		//local search
 
-	return tmp;
+	//Study Group-4/24/2017
+	//Tried two different ways, the method using seperat x and y coordinates seemed to work better for me using the whole vector.
+
+	//Study Group-4/24/2017
+	vec2 tmp;
+	vec2 V = vec2(0.0, 0.0);//start position
+	float pX = 0.0; //start X
+	float pY = 0.0; //start y
+
+	vec2 pV;
+	vec2 VSep;
+
+	for (int i = 0; i < agents.size(); i++) //call agent in the system
+	{
+		pX = GPos[0] - agents[i]->GPos[0];
+		pY = GPos[1] - agents[i]->GPos[1];
+		pV = vec2(pX, pY);
+
+		if (((pX != 0.0) || (pY != 0.0)) && (pV.Length() < RNeighborhood))
+		{
+			V[0] += (pX / (pV.Length() * pV.Length()));
+			V[1] += (pY / (pV.Length() * pV.Length()));
+		}
+	}
+
+	//Repulsion force against other characters
+	//	agent position-character position
+	//	normalize
+	//	then 1/r (or r^2)-KSeparate?		
+	VSep = KSeparate * V;
+	thetad = atan2(VSep[1], VSep[0]);
+	vd = VSep.Length();
+	Truncate(vd, 0, MaxVelocity); //set min and max valocity
+	return vec2(cos(thetad)*vd, sin(thetad)*vd); //retrived coordinates
+	
+	//Study Group-4/24/2017
+	//vec2 tmp;
+	//vec2 sum;
+
+	//for (int i = 0; i < agents.size(); i++) {  // # of agents in the system
+	//	tmp = agents[i]->GPos - GPos;// closest neighbor minus agent's position
+	//	if (tmp.Length() < RNeighborhood) //if distance is less than neighbor constant 
+	//		tmp = goal - agents[i]->GPos;
+	//		sum += ((tmp)/(tmp.Length()))*KSeparate; //then the sum equals the local agent pointing to the nominal velocity normalized
+	//}
+	//tmp = goal - GPos; //the desired position plus the sum of all the other agents
+	//thetad = atan2(tmp[1], tmp[0]); //arc tangent of position
+	//vd = tmp.Length(); //distance
+	//Truncate(vd, 0, MaxVelocity); //set min and max valocity
+	//return vec2(cos(thetad)*vd, sin(thetad)*vd); //retrived coordinates
+
+
 }
+
 
 /*
 *	Alignment behavior
@@ -675,9 +734,26 @@ vec2 SIMAgent::Alignment()
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
-	vec2 tmp;
+	//From Webcourses
+	//SIMAgent::agents.size()   will tell you how many agents are currently in the system.
+		//exhaustive search
+	//SIMAgent*temp = SIMAgent::agents[i]   calls an agent that is a local agent.
+		//local search
 
-	return tmp;
+	//Study Group-4/24/2017
+	vec2 tmp;
+	vec2 sum;
+	for (int i = 0; i < agents.size(); i++) {  // # of agents in the system
+		tmp = agents[i]->GPos - GPos;// closest neighbor minus agent's position
+		if (tmp.Length() < RNeighborhood) //if distance is less than neighbor constant 
+			sum = agents[i]->v0.Normalize(); //then the sum equals the local agent pointing to the nominal velocity normalized
+	}
+	tmp = goal - GPos; //the desired position plus the sum of all the other agents
+	thetad = atan2(tmp[1], tmp[0]); //arc tangent of position
+	vd = tmp.Length()*KArrival; //distance times arrival constant
+	Truncate(vd, 0, MaxVelocity); //set min and max valocity
+	return vec2(cos(thetad)*vd, sin(thetad)*vd); //retrived coordinates
+
 }
 
 /*
@@ -693,10 +769,27 @@ vec2 SIMAgent::Cohesion()
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
+	//From Webcourses
+	//SIMAgent::agents.size()   will tell you how many agents are currently in the system.
+		//exhaustive search
+	//SIMAgent*temp = SIMAgent::agents[i]   calls an agent that is a local agent.
+		//local search
+
 	vec2 tmp;
-
-
-	return tmp;
+	vec2 sum;
+	for (int i = 0; i< agents.size(); i++) {
+		tmp = agents[i]->GPos - GPos;
+		if (tmp.Length() < RNeighborhood) {
+			sum += tmp;
+		}
+	}
+	sum = ((sum / agents.size()) - GPos);//webcourses; average positions of all agents
+	tmp = goal - GPos;
+	vd = tmp.Length();
+	Truncate(vd, 0, MaxVelocity);
+	tmp.Normalize();
+	thetad = atan2(tmp[1], tmp[0]);
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 }
 
 /*
@@ -711,9 +804,18 @@ vec2 SIMAgent::Flocking()
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
-	vec2 tmp;
+	//Tried two different flocking fuctions in Study Group
 
+	//Study Group 4/24/2017
+    vec2 tmp;
+	vec2 s = Separation();
+	vec2 a = Alignment();
+	vec2 c = Cohesion();
 	return tmp;
+
+	//Study Group 4/24/2017 but adjusted based on information from Webcourses
+	//vec2 tmp = KSeparate*Separation() + KAlign*Alignment() + KCohesion*Cohesion();
+	//return tmp;
 }
 
 /*
@@ -729,7 +831,10 @@ vec2 SIMAgent::Leader()
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
+	//From Webcourses
+	//designates leader but doesnt follow yet
 	vec2 tmp;
-
+	vec2 s = Separation();
+	vec2 a = Alignment();
 	return tmp;
 }

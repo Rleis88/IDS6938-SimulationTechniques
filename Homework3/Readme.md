@@ -47,12 +47,13 @@ To demonstrate my understanding of the problem. I have provided some background 
 
 In computer animaltion, *steering behaviors* can be defined as methematical formulas used to simulate "flocking" behvaiors similar to the movement of birds, schools of fish, and other groups of behavioral agents. Above, I introduced agents and agent-based simulation. Steering behaviors can help program the behavioral aspects of agents in a way that allows for close-to-natural, improvized movement in an efficient way using simple forces (called *steering forces*; [Bevilacqua, 2012a](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)). Types of steering behaviors and forces will be described in more detail later in the present document and implemented using C++ programing in Visual Studio. While ther are many ways to program agent behvaior, in the present document I focus on a specific model called Boids Model.
 
+Here is an [example](https://www.youtube.com/watch?v=tEGR6NN-cQc) of a similar project. This video shows how the agent(s) *should* move based on their steering behaviors.
+
 #### Boids Model
 
 *What methods can I use to simulate the steering behaviors of agents?*
 
 The Boids Model was created in the late 80's by [Craig W. Reynolds](http://www.red3d.com/cwr/). Reynods created the model because at the time it was incredibly difficult to model the individual and complex paths of multiple computer animated entities. With then current techonology, it was difficult to maintain and edit paths (avoid collision) for larger groups of entities. Reynolds [(1987)](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db) stated "a better approach is needed for efficient, robust, and believable animation of flocks and related group motions," ([Reynolds,1987](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db)). Thus, Reyonds in his 1987 paper -- *Flocks, Heards, and Schools: A Distributed Behvaioral Model* -- introduced the Boids Model, which stands for "bird-oid object" or "bird-like object," ([Kider, 2017a](https://webcourses.ucf.edu/courses/1246518/pages/boids?module_item_id=10564246)). Each object is an individual entity exhibiting simple behaviors-making Boids an agent-based model. You can view a video of the original Boids computer animaltion created by Reynods [here](https://www.youtube.com/watch?v=86iQiV3-3IA)
-
 
 #### Implementation
 
@@ -192,7 +193,7 @@ Below is the code I implemented for *seek*.
 	tmp = goal - GPos;
 	tmp.Normalize();
 	thetad = atan2(tmp[1],tmp[0]);
-	double vd = SIMAgent::MaxVelocity;
+	vd = MaxVelocity;
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
 Where *tmp* is the desired velocity to the new "goal" position, *thetad* is the desired orientation, and *vd* is the max velocity. The desired velocity is "the shortest path from the current position to the target" ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)). The velocity vector for seek is calculated as: velocity = normalize(target - position) x max_velocity, ([Bevilacqua, 2012a](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)), which is why tmp is normalized in the code presented above. For *thetad* "we need to derive is the new angle the agent should be targeting, again we are using our basic trigonometric properties," ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)). The max velocity calculates how quickly the agent is moving ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)). Then the code should return the cartesian coordinates for the agent to go to ([Kider, 2017c](https://github.com/hepcatjk/IDS6938-SimulationTechniques)), which can be seen in the return statment.
@@ -213,7 +214,7 @@ Below is the code I implemented for *flee*.
 	tmp = goal - GPos;
 	tmp.Normalize();
 	thetad = atan2(tmp[1], tmp[0]);
-	double vd = SIMAgent::MaxVelocity;
+	vd = MaxVelocity;
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
 The code for flee is similar to the code for seek. However, to account for the opposite direction/orientation, I could add pi to thetad to achieve the new desired velocity, which can be denoted as  *thetad = thetad + M_PI*, ([Kider, 2017b](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616)). Alternativly, I could also switch the *GPos* and *goal* withing *tmp* instead of adding pi, ([Bevilacqua, 2012b](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303)). I tried both and it seems to work. I chose to use the second method as it was easier for me to understand.
@@ -273,9 +274,13 @@ There may be an instance where one may want non-player characters (NPCs) to "wan
 Below is the code I implemented for *wander*.
 
 	vec2 tmp;
+	float angle = float(rand() % 360) / 180.0 * M_PI;
+	vd = MaxVelocity;
+	thetad = angle;
+	tmp = vec2(cos(thetad)*vd*KNoise, sin(thetad)*vd*KNoise)*KWander;
 	return tmp;
 
-To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability.
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. I tried many different approached to implement wander. I followed something the study group came up with on 4/13/2017 but it did make sense to me so I didnt want to use the code. I then tried another method I found on online ([Bevilacqua, 2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624)). However, I wasn't able to fully work through this method in a way that worked in the code. Eventually, I just used the informaiton from webcourses stating "another way to implement this is to pick a random angle multiply some random noise (Knoise) to the x and y directions of the velocity, and multiply a damping term (KWander)," ([Kider, 2017e](https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154)).
 
 #### [Avoid](https://webcourses.ucf.edu/courses/1246518/pages/wander-and-avoid?module_item_id=10573154)
 There are two different methods approached to program obstical avoidance, the *force field approach* and the *steer-to-avoid approach* ([Prinston, 2012](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf)).
@@ -296,8 +301,8 @@ Below is the code I implemented for *avoid*.
 To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability.
 
 #### Other individual behaviors include :
-* **Pursuit**- "following a target aiming to catch it," ([Bevilacqua, 2012d](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946))
-* **Evade** - "Instead of seeking the target's future position, in the evade behavior the character will flee that position," ([Bevilacqua, 2012d](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946))
+* **Pursuit**- "following a target aiming to catch it," ([Bevilacqua, 2012d](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946)).
+* **Evade** - "Instead of seeking the target's future position, in the evade behavior the character will flee that position," ([Bevilacqua, 2012d](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946)).
 
 Pursuit| Evade
 -------- | --------
@@ -319,20 +324,86 @@ Wall Following and Containment| Path Following
 ### 1.c) Group Behaviors:
 Note: Each section title is linked to the corresponding WebCourses URL.
 #### [Seperation](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
-"(a) separation,
-which steers a boid away from its neighbors; Behavioral animation PDF article
+"(a) separation, which steers a boid away from its neighbors; Behavioral animation PDF article
+
+	vec2 tmp;
+	vec2 V = vec2(0.0, 0.0);
+	float pX = 0.0;
+	float pY = 0.0;
+
+	vec2 pV;
+	vec2 VSep;
+
+	for (int i = 0; i < agents.size(); i++)
+	{
+		pX = GPos[0] - agents[i]->GPos[0];
+		pY = GPos[1] - agents[i]->GPos[1];
+		pV = vec2(pX, pY);
+
+		if (((pX != 0.0) || (pY != 0.0)) && (pV.Length() < RNeighborhood))
+		{
+			V[0] += (pX / (pV.Length() * pV.Length()));
+			V[1] += (pY / (pV.Length() * pV.Length()));
+		}
+	}
+
+	VSep = KSeparate * V;
+	thetad = atan2(VSep[1], VSep[0]);
+	vd = VSep.Length();
+	Truncate(vd, 0, MaxVelocity);
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
 
 #### [Cohesion](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 (c) cohesion, which steers the boid toward the average position of its neighbors [Reyn87]."  Behavioral animation PDF article
+
+	vec2 tmp;
+	vec2 sum;
+	for (int i = 0; i < agents.size(); i++) {
+		tmp = agents[i]->GPos - GPos;
+		if (tmp.Length() < RNeighborhood)
+			sum = agents[i]->v0.Normalize();
+	}
+	tmp = goal - GPos;
+	thetad = atan2(tmp[1], tmp[0]);
+	vd = tmp.Length()*KArrival;
+	Truncate(vd, 0, MaxVelocity);
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
 #### [Alignment](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
+
+	vec2 tmp;
+	vec2 sum;
+	for (int i = 0; i< agents.size(); i++) {
+		tmp = agents[i]->GPos - GPos;
+		if (tmp.Length() < RNeighborhood) {
+			sum += tmp;
+		}
+	}
+	sum = ((sum / agents.size()) - GPos);
+	tmp = goal - GPos;
+	vd = tmp.Length();
+	Truncate(vd, 0, MaxVelocity);
+	tmp.Normalize();
+	thetad = atan2(tmp[1], tmp[0]);
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
 (b) alignment, which steers a boid such that its heading aligns with its neighbors;  Behavioral animation PDF article
 #### [Flocking](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
+
+    vec2 tmp;
+	vec2 s = Separation();
+	vec2 a = Alignment();
+	vec2 c = Cohesion();
+	return tmp;
+
 #### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
+
 
 Limited information- based off of the velocity of the other agents -- Is this why there is a leader in the group behaviors
 
 #### Other Group Behaviors Include:
-* **Queueing**- In this instance, is defined as "is the process of standing in line, forming a row of characters that are patiently waiting to arrive somewhere," [](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365).
+* **Queueing**- In this instance, is defined as "is the process of standing in line, forming a row of characters that are patiently waiting to arrive somewhere," [Bevilacqua, 2012e](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365).
 
 
 ## Part 2 - Simulating a Simple Pedestrian Flow
@@ -362,6 +433,8 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 
 * Bevilacqua, F. (2012d). [Understanding Steering Behaviors: Pursuit and Evade](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946
 
+* Bevilacqua, F. (2012e). [Understanding Steering Behaviors: Queue](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365
+
 * Kider, J. (2017a). [Boids](https://webcourses.ucf.edu/courses/1246518/pages/boids?module_item_id=10564246) [Webcourse Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/boids?module_item_id=10564246
 
 * Kider, J. (2017b). [Seek and Flee](https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616) [Webcourses Module]. Retrived from https://webcourses.ucf.edu/courses/1246518/pages/seek-and-flee?module_item_id=10571616
@@ -375,6 +448,7 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 * Reynods, C. W. (1987). [Flocks, heards, and schools: A distributed behvaioral model](http://delivery.acm.org/10.1145/40000/37406/p25-reynolds.pdf?ip=132.170.253.255&id=37406&acc=ACTIVE%20SERVICE&key=5CC3CBFF4617FD07%2E2826F4AA9CF74935%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=752717236&CFTOKEN=59149052&__acm__=1492607460_82307315c3d46cd16890ecb2213f02db). *Computer Graphics, 21*(4), p. 25-34.
 
 * Prinston (2012). [Boids COS 426](http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf). Retrived from http://www.cs.princeton.edu/courses/archive/spr12/cos426/notes/cos426_s12_lecture20_boids.pdf
+
 * [Maze](https://www.bing.com/images/search?view=detailV2&ccid=RC36Xmth&id=75F0B2DFE037AAED3F66AA8ABF44C38C5FE859F4&q=maze&simid=608014100339818874&selectedIndex=25&ajaxhist=0)
 
 * [Base Code Exmample](https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp)
@@ -391,6 +465,10 @@ Limited information- based off of the velocity of the other agents -- Is this wh
 	* Keith MacArthur
 	* Sarah Matthews
 	* Roberto Cabrera
+* 4/24/2017
+	* Keith MacArthur
+	* Sarah Matthews
+	* Charlie Timm
 
 ## Further Reading
 
