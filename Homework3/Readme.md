@@ -362,16 +362,44 @@ Separation is used to allow agents to disperse and avoid crowding ([Reynolds, 19
 	Truncate(vd, 0, MaxVelocity);
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
-To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. I tried two different methods to implement seperation. We went over these two different methods in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to. Out of the two methods we tried, I found that using a method which utilized X and Y seperatly rather than treating it like a vector worked better. I ended up working on seperation, cohesion, and alignment simultaneously. It was easiest to get alignment and then work on the other two.
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. I tried two different methods to implement seperation. We went over these two different methods in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to. To find the other characters we used the global/exhaustive search method (which can also be seen in cohesion and alignment). Out of the two approaches we tried, I found that using a method which utilized X and Y seperatly rather than treating it like a vector worked better. I ended up working on seperation, cohesion, and alignment simultaneously. It was easiest to get alignment and then work on the other two.
 
 
 #### [Cohesion](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
-*Cohesion* can be defined as "Steer to move toward the average position of local flockmates," ([Kider, 2017f](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)).
+*Cohesion* can be defined as making the agents "steer to move toward the average position of local flockmates," ([Kider, 2017f](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)).
 
 Cohesion is used to group the characters ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). To implement cohesion, one can use one of the same two methods noted in seperation for finding the position of the other agents ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Then use the seek function as a base to have all of the characters group toward the average position ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)).
 
 ![](images/cohesion.gif?raw=true)
+
+[Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
+
+    	vec2 tmp;
+	vec2 sum;
+	for (int i = 0; i< agents.size(); i++) {
+		tmp = agents[i]->GPos - GPos;
+		if (tmp.Length() < RNeighborhood) {
+			sum += tmp;
+		}
+	}
+	sum = ((sum / agents.size()) - GPos);
+	tmp = goal - GPos;
+	vd = tmp.Length();
+	Truncate(vd, 0, MaxVelocity);
+	tmp.Normalize();
+	thetad = atan2(tmp[1], tmp[0]);
+	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over cohesion in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to.
+
+#### [Alignment](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
+
+*Alignment* is defined as making the agents "steer towards the average heading of local flockmates," ([Kider, 2017f](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)).
+
+Alignment is used to orient (heading) all of the agents toward the same direction ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). To find the other characters I can again use one of the two methods described in seperation. Then I should average the velocity of all the other characters to figure out the "desired velocity," which will steer the characters all in the same direction ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)).
+
+![](images/alignment.gif?raw=true)
 
 [Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
 
@@ -388,29 +416,7 @@ Cohesion is used to group the characters ([Reynolds, 1999](http://www.red3d.com/
 	Truncate(vd, 0, MaxVelocity);
 	return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
-To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over cohesion in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to.
-
-#### [Alignment](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
-
-![](images/alignment.gif?raw=true)
-
-[Source](https://webcourses.ucf.edu/courses/1246518/pages/separation-cohesion-and-alignment?module_item_id=10573478)
-
-	vec2 tmp;
-	vec2 sum;
-	for (int i = 0; i< agents.size(); i++) {
-		tmp = agents[i]->GPos - GPos;
-		if (tmp.Length() < RNeighborhood) {
-			sum += tmp;
-		}
-	}
-	sum = ((sum / agents.size()) - GPos);
-	tmp = goal - GPos;
-	vd = tmp.Length();
-	Truncate(vd, 0, MaxVelocity);
-	tmp.Normalize();
-	thetad = atan2(tmp[1], tmp[0]);
-	return vec2(cos(thetad)*vd, sin(thetad)*vd);
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over alignment in the Study Group on 4/24/2017. I altered the code we went over after the study group because it didnt quite work the way I wanted it to.
 
 #### [Flocking](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)
 
