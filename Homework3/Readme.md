@@ -330,7 +330,9 @@ Offset Pursuit| Flow Following| Unaligned Collision Avoidance
 
 ([Source](http://www.red3d.com/cwr/steer/gdc99/))
 
-*You will see some of these behaviors later in the Anylogic Models*
+*It is important to note here that Reynolds ([1999](http://www.red3d.com/cwr/steer/gdc99/)) uses a combination of wall following and containment for obstical avoidance above. In general it was a bit confusing as many sources called some of the more "complex" behaviors different things*
+
+*Additionally, You will see some of these behaviors later in the Anylogic Models*
 
 ### 1.c) Group Behaviors:
 Note: Each section title is linked to the corresponding WebCourses URL.
@@ -445,6 +447,10 @@ Below is the code I implemented for *flocking*.
 
 #### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?![](images/alignment.gif?raw=true)
 
+*Leader Following* can be defined as "one or more [characters following] another moving characters designated as the leader," ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)).
+
+
+Typically the agents need to stay clear of the leader's path without crowding or getting in front of the leader ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Additionally, these follwer dont want to bump into each other as well. 
 
 ![](images/leader.png?raw=true)
 
@@ -497,7 +503,27 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 ### 2.b) Create a Maze
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=8ESffmzlObc" target="_blank"><img src="http://img.youtube.com/vi/8ESffmzlObc/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=8ESffmzlObc)*
+
+#### A Little Bit of Fun!
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=8ESffmzlObc" target="_blank"><img src="http://img.youtube.com/vi/8ESffmzlObc/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=8ESffmzlObc)*
+
+*Here is where some of the boids behaviors can be seen*
+
 ### 2.c) Model and Analyze a Building/Floor/Outdoor Space/Stadium on Campus
+
+**Model:** UCF Library Main Floor
+
+**Research Question:** If students enter the Library at a discrete uniform random interarrival rate and there is about a 1/3 chance that students will get coffee before they study, how many students will get coffee at Java City?
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=8ESffmzlObc" target="_blank"><img src="http://img.youtube.com/vi/8ESffmzlObc/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=8ESffmzlObc)*
+
+## Future Work
+
 
 
 ## References
@@ -515,6 +541,10 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 * Bevilacqua, F. (2012d). [Understanding Steering Behaviors: Pursuit and Evade](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946
 
 * Bevilacqua, F. (2012e). [Understanding Steering Behaviors: Queue](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-queue--gamedev-14365
+
+* Bevilacqua, F. (2012f). [Understanding Steering Behaviors: Leader Following](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-leader-following--gamedev-10810). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-leader-following--gamedev-10810
+
+* Bevilacqua, F. (2012g). [Understanding Steering Behaviors: Collision Avoidance](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777). Retrived from https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777
 
 * Flemhead-d3lc535 (n.d.). [A Maze](http://pre13.deviantart.net/2b52/th/pre/i/2011/188/3/e/a_maze_____by_flemhead-d3lc535.jpg). Retrived from http://pre13.deviantart.net/2b52/th/pre/i/2011/188/3/e/a_maze_____by_flemhead-d3lc535.jpg
 
@@ -540,6 +570,8 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 * Shijingliu (2014). [Agent.cpp](https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp). Retrived at https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp.
 
+* UCF Libraries (2017). [Maps and Addressess](https://library.ucf.edu/maps/). Retrived from https://library.ucf.edu/maps/
+
 * Wikimedia Foundation, Inc., (2017a).[Velocity](https://en.wikipedia.org/wiki/Velocity). Retrived from https://en.wikipedia.org/wiki/Velocity
 
 * Wikimedia Foundation, Inc., (2017b). [Boids](https://en.wikipedia.org/wiki/Boids). Retrived from https://en.wikipedia.org/wiki/Boids
@@ -563,11 +595,8 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 * http://www.red3d.com/cwr/steer/
 * http://www.red3d.com/cwr/boids/
+* Different method for Avoid - http://www.red3d.com/cwr/nobump/nobump.html
 
 
 ## To Read/Review
 * https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-path-following--gamedev-8769
-* https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-leader-following--gamedev-10810
-* https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777
-* http://www.red3d.com/cwr/nobump/nobump.html
-* https://runthemodel.com/models/204/

@@ -32,8 +32,8 @@ float SIMAgent::KArrival = 1.0;
 float SIMAgent::KDeparture = 1.0;
 float SIMAgent::KNoise = 1.0;
 float SIMAgent::KWander = 1.0;
-float SIMAgent::KAvoid = 1.0;
-float SIMAgent::TAvoid = 1.0;
+float SIMAgent::KAvoid = 800;
+float SIMAgent::TAvoid = 800;
 float SIMAgent::RNeighborhood = 1.0;
 float SIMAgent::KSeparate = 1.0;
 float SIMAgent::KAlign = 1.0;
@@ -234,12 +234,12 @@ void SIMAgent::InitValues()
 	Kv0 = 10.0; //
 	Kp1 = -90.0; //seems to make the agent walk straighter but walks past if set too low; negative values orient the agent in the correct direct for some reason and also less erratic movement.
 	Kv1 = 40.0; // Heading -seems to make the radius of the circle either bigger or smaller
-	KArrival = 0.1; //makes it slow the closer it gets to the target
+	KArrival = 0.03; //makes it slow the closer it gets to the target
 	KDeparture = 0.5; //makes it slow the closer to the target and faster the farther away
 	KNoise = 10.0; //random noise for wander
 	KWander = 8.0; // damping term for wander; how strong or week the wandering force is-how much it changes per frame https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-wander--gamedev-1624
-	KAvoid = 1.0; //
-	TAvoid = 20.0; //
+	KAvoid = 1.0; // The greater MAX_SEE_AHEAD is, the earlier the character will start acting to dodge an obstacle, because it will perceive it as a threat even if it's far away:
+	TAvoid = 20.0; // The greater MAX_AVOID_FORCE is, the stronger is the avoidance force pushing the character away from the obstacle.
 	RNeighborhood = 5000.0; // radius to neighbor; also seems to slow down agents to stop in sep
 	KSeparate = 5000.0; // slow down agents to stop in sep
 	KAlign = 5000.0; //
@@ -482,8 +482,7 @@ vec2 SIMAgent::Arrival()
 
 	vec2 tmp;
 	tmp = goal - GPos;
-	double dist = tmp.Length();
-	vd = abs(dist)*KArrival;
+	vd = tmp.Length()*KArrival;
 	Truncate(vd, 0, MaxVelocity);// Truncate (Bevilacqua, 2012b) means to cut off; (value, min, max) "it will not exceed a certain maximum speed . A minimum speed can also be specified but defaults to zero."(Reynolds, 1987).
 	tmp.Normalize();
 	thetad = atan2(tmp[1], tmp[0]);
@@ -633,17 +632,88 @@ vec2 SIMAgent::Wander()
 *  env->obstacles[i][2] is the radius of the ith obstacle
 *  Agent bounding sphere radius is in SIMAgent::radius
 *  Avoidance settings are in SIMAgent::TAvoid and SIMAgent::KAvoid
-*  You need to compute the desired velocity and desired orientation
-*  Store them into vd and thetad respectively
-*  return a vec2 that represents the goal velocity with its direction being thetad and its norm being vd
 */
 vec2 SIMAgent::Avoid()
+
 {
 	/*********************************************
 	// TODO: Add code here
 	*********************************************/
+	// used https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp as a reference
+	//vec2 tmp;
+	//for (int i = 0; i<env->obstaclesNum; ++i) //// Number of obstacles is env->obstaclesNum
+	//{
+	//	float Lb = abs(TAvoid*state[2]); // state [2] is the velocity of the agent in local body coordinates
+	//	vec2 w = vec2(env->obstacles[i][0] - GPos[0], env->obstacles[i][1] - GPos[1]);
+	//	vec2 l = WorldToLocal(w);
+	//	if (abs(l[0]) > abs(Lb))
+	//	{
+	//		vec2 error = goal - GPos;
+	//		error = WorldToLocal(error);
+	//		thetad = state[1] + atan2(error[1], error[0]);
+	//		vec2 Varrive = KArrival*error;
+	//		vd = sqrt(Varrive[0] * Varrive[0] + Varrive[1] * Varrive[1]);
+	//		tmp = vec2(vd*cos(thetad), vd*sin(thetad));
+	//		continue;
+	//	}
+	//	if (abs(l[0]) <= abs(Lb))
+	//	{
+	//		if (abs(l[1]) > (abs(radius) + abs(env->obstacles[i][2])))
+	//		{
+	//			vec2 error = goal - GPos;
+	//			error = WorldToLocal(error);
+	//			thetad = state[1] + atan2(error[1], error[0]);
+	//			vec2 Varrive = KArrival*error;
+	//			vd = sqrt(Varrive[0] * Varrive[0] + Varrive[1] * Varrive[1]);
+	//			tmp = vec2(vd*cos(thetad), vd*sin(thetad));
+	//			continue;
+	//		}
+	//		if (abs(l[1]) <= (abs(radius) + abs(env->obstacles[i][2])))
+	//		{
+	//			float lM = sqrt(l[0] * l[0] + l[1] * l[1]);
+	//			vec2 norm = vec2(-l[0] / lM, -l[1] / lM);
+	//			float VavoidM = KAvoid*MaxVelocity / (1 + (lM - radius - env->obstacles[i][2])*(lM - radius - env->obstacles[i][2]));
+	//			vd = abs(VavoidM);
+	//			thetad = state[1] + atan2(norm[1], norm[0]);
+	//			tmp = vec2(vd*cos(thetad), vd*sin(thetad));
+	//			return tmp;
+	//		}
+	//	}
+	//}
+
+
+	//used https https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777as a reference
 	vec2 tmp;
-	
+	vec2 ahead;
+	vec2 ahead2;
+
+	//Search for obstacles
+	//KAvoid = max see ahead?
+	ahead = GPos + v0.Normalize() * KAvoid;
+	ahead2 = GPos + v0.Normalize() * KAvoid * 0.5;
+	for (int i = 0; i < env->obstaclesNum; i++) { // Number of obstacles is env->obstaclesNum
+		vec2 tmp; //create center point of obstacle
+		tmp[0] = env->obstacles[i][0]; // X position of the ith obstacle
+		tmp[1] = env->obstacles[i][1]; // Y position of the ith obstacle
+
+		//Find distance between center and ahead vectors -dont need to type out Euclidean distance because it is .Length()
+		float dist1 = (tmp - ahead).Length(); //try switching to plus?
+		float dist2 = (tmp - ahead2).Length(); //try switching to plus?
+
+		// See if obstical is in the way
+		if (dist1 <= env->obstacles[i][2] || dist2 <= env->obstacles[i][2]) { //env->obstacles[i][2] is the radius of the ith obstacle
+			// then avoid
+
+			thetad = thetad + TAvoid; //TAvoid is Max Avoid Force
+			ClampAngle(thetad);
+			vd = MaxVelocity;
+			return vec2(cos(thetad)*vd, sin(thetad)*vd);
+		}
+		else {
+			return Arrival();
+		}
+	}
+	thetad = atan2(tmp[1], tmp[0]);
 	return tmp;
 }
 
@@ -683,14 +753,13 @@ vec2 SIMAgent::Separation()
 		pX = GPos[0] - agents[i]->GPos[0];
 		pY = GPos[1] - agents[i]->GPos[1];
 		pV = vec2(pX, pY);
-
 		if (((pX != 0.0) || (pY != 0.0)) && (pV.Length() < RNeighborhood))
 		{
-			V[0] += (pX / (pV.Length() * pV.Length()));
-			V[1] += (pY / (pV.Length() * pV.Length()));
+			V[0] += (pX / pV.Length()); //1/r
+			V[1] += (pY / pV.Length()); //1/r
 		}
 	}
-
+	//return tmp;
 	//Repulsion force against other characters
 	//	agent position-character position
 	//	normalize
@@ -807,14 +876,15 @@ vec2 SIMAgent::Flocking()
 	//Tried two different flocking fuctions in Study Group
 
 	//Study Group 4/24/2017
-    vec2 tmp;
+	vec2 tmp;
 	vec2 s = Separation();
 	vec2 a = Alignment();
 	vec2 c = Cohesion();
 	return tmp;
 
+
 	//Study Group 4/24/2017 but adjusted based on information from Webcourses
-	//vec2 tmp = KSeparate*Separation() + KAlign*Alignment() + KCohesion*Cohesion();
+	//vec2 tmp = KSeparate*Separation() + KAlign*Alignment()+ KCohesion*Cohesion();
 	//return tmp;
 }
 
@@ -841,9 +911,8 @@ vec2 SIMAgent::Leader()
 	//return tmp;
 
 	//Study Group 4/24/2017 but adjusted based on information from Webcourses
-	//vec3 tmp = KSeparate*Separation() + KArrival*Arrival();
+	//vec2 tmp = KSeparate*Separation() + KArrival*Arrival();
 	//return tmp;
-
 	vec2 tmp;
 	if (GPos == agents[0]->GPos) // Designate Leader-https://github.com/shijingliu/CIS-562-Behavioral-Animation/blob/master/Agent.cpp
 	{
@@ -852,7 +921,7 @@ vec2 SIMAgent::Leader()
 	else
 	{
 		//Leader X and Y Coordinates
-		vec2 V = vec2(0.0, 0.0); 
+		vec2 V = vec2(0.0, 0.0);
 		float pX = 0.0;
 		float pY = 0.0;
 		vec2 pV;
@@ -861,17 +930,17 @@ vec2 SIMAgent::Leader()
 		pY = agents[0]->GPos[1];
 		pV = vec2(pX, pY);
 
-		//Seek leader
+		//Arrival() to leader
 		tmp = pV - GPos;
+		vd = tmp.Length()*KArrival;
+		Truncate(vd, 0, MaxVelocity);
 		tmp.Normalize();
 		thetad = atan2(tmp[1], tmp[0]);
-		vd = MaxVelocity;
 		return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
 		//Follow one body length behind
 		tmp = agents[0]->GPos - GPos;
 		vec2 s = Separation();
-		vec2 a = Arrival();
 	}
 	return tmp;
 }
