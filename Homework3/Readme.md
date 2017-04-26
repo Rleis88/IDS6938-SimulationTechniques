@@ -4,7 +4,9 @@
 ## Introduction
 The goal of this assignment is to enable the behavioral animation of vehicle-like walking agents.
 
-### An Agent is Defined as...
+### Agents
+
+To view the difinition and informaiton on agents [click here](https://webcourses.ucf.edu/courses/1246518/pages/what-is-an-agent?module_item_id=10564200).
 
 Sometimes, particularly in the context of steering behavior these agents may be refered to as autonomous characters or Non-Player Characters (NPC).
 
@@ -45,7 +47,7 @@ To demonstrate my understanding of the problem. I have provided some background 
 
 *What are steering behaviors?*
 
-In computer animaltion, *steering behaviors* can be defined as methematical formulas used to simulate "flocking" behvaiors similar to the movement of birds, schools of fish, and other groups of behavioral agents. Above, I introduced agents and agent-based simulation. Steering behaviors can help program the behavioral aspects of agents in a way that allows for close-to-natural, improvized movement in an efficient way using simple forces (called *steering forces*; [Bevilacqua, 2012a](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)). Types of steering behaviors and forces will be described in more detail later in the present document and implemented using C++ programing in Visual Studio. While ther are many ways to program agent behvaior, in the present document I focus on a specific model called Boids Model.
+In computer animaltion, *steering behaviors* can be defined as methematical formulas used to simulate "flocking" behvaiors similar to the movement of birds, schools of fish, and other groups of behavioral agents. Above, I introduced agent-based simulation. Steering behaviors can help program the behavioral aspects of agents in a way that allows for close-to-natural, improvized movement in an efficient way using simple forces (called *steering forces*; [Bevilacqua, 2012a](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849)). Types of steering behaviors and forces will be described in more detail later in the present document and implemented using C++ programing in Visual Studio. While ther are many ways to program agent behvaior, in the present document I focus on a specific model called Boids Model.
 
 Here is an [example](https://www.youtube.com/watch?v=tEGR6NN-cQc) of a similar project. This video shows how the agent(s) *should* move based on their steering behaviors.
 
@@ -109,21 +111,19 @@ To implement *SIMAgent::InitValues()* I first looked up some example code. I fou
 
 Below are the initial values implemented in my code.
 
-**remember to update this**
-
-    Kv0 = 200.0;
-	Kp1 = 15.0;
-	Kv1 = 1.0;
-	KArrival = 0.5;
-	KDeparture = 10000.0;
-	KNoise = 0.0;
+	Kv0 = 10.0;
+	Kp1 = -90.0;
+	Kv1 = 40.0;
+	KArrival = 0.03;
+	KDeparture = 0.5;
+	KNoise = 10.0;
 	KWander = 8.0;
 	KAvoid = 1.0;
 	TAvoid = 20.0;
-	RNeighborhood = 800.0;
-	KSeparate = 1000.0;
-	KAlign = 20.0;
-	KCohesion = 0.05;
+	RNeighborhood = 5000.0;
+	KSeparate = 5000.0;
+	KAlign = 5000.0;
+	KCohesion = 5000.0;
 
 ### Gifted Code
 Dr. Kider provided the class with two different chunks of code, which included *SIMAgent::UpdateState()* and *SIMAgent::Control()*.
@@ -235,8 +235,7 @@ Below is the code I implemented for *arrival*.
 
 	vec2 tmp;
 	tmp = goal - GPos;
-	double dist = tmp.Length();
-	vd = abs(dist)*KArrival;
+	vd = tmp.Length()*KArrival;
 	Truncate(vd, 0, MaxVelocity);
 	tmp.Normalize();
 	thetad = atan2(tmp[1], tmp[0]);
@@ -252,8 +251,7 @@ Below is the code I implemented for *departure*.
 
 	vec2 tmp;
 	tmp = GPos-goal;
-	double dist = tmp.Length();
-	vd = abs(dist)*KDeparture;
+	vd = tmp.Length()*KArrival;
 	Truncate(vd, 0, MaxVelocity);
 	tmp.Normalize();
 	thetad = atan2(tmp[1], tmp[0]);
@@ -296,9 +294,35 @@ There are two different methods approached to program obstical avoidance, the *f
 Below is the code I implemented for *avoid*.
 
 	vec2 tmp;
-	return tmp;
+	vec2 ahead;
+	vec2 ahead2;
 
-To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability.
+	ahead = GPos + v0.Normalize() * KAvoid;
+	ahead2 = GPos + v0.Normalize() * KAvoid * 0.5;
+	for (int i = 0; i < env->obstaclesNum; i++) {
+		vec2 tmp; //create center point of obstacle
+		tmp[0] = env->obstacles[i][0];
+		tmp[1] = env->obstacles[i][1];
+
+		float dist1 = (tmp - ahead).Length();
+		float dist2 = (tmp - ahead2).Length();
+
+		if (dist1 <= env->obstacles[i][2] || dist2 <= env->obstacles[i][2]) {
+
+			thetad = thetad + TAvoid;
+			ClampAngle(thetad);
+			vd = MaxVelocity;
+			return vec2(cos(thetad)*vd, sin(thetad)*vd);
+		}
+		else {
+			return Arrival();
+		}
+	}
+	thetad = atan2(tmp[1], tmp[0]);
+	return tmp;
+}
+
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. I used the approach layed out by Bevilacqua [2012c](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-collision-avoidance--gamedev-7777) and got to "Calculating the Avoidance Force" before having to turn in the assignment. I don't believe the code works how I would like it to.
 
 #### Other individual behaviors include :
 * **Pursuit**- "following a target aiming to catch it," ([Bevilacqua, 2012d](https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-pursuit-and-evade--gamedev-2946)).
@@ -356,19 +380,17 @@ Below is the code I implemented for *seperation*.
 	vec2 pV;
 	vec2 VSep;
 
-	for (int i = 0; i < agents.size(); i++)
+	for (int i = 0; i < agents.size(); i++) //call agent in the system
 	{
 		pX = GPos[0] - agents[i]->GPos[0];
 		pY = GPos[1] - agents[i]->GPos[1];
 		pV = vec2(pX, pY);
-
 		if (((pX != 0.0) || (pY != 0.0)) && (pV.Length() < RNeighborhood))
 		{
-			V[0] += (pX / (pV.Length() * pV.Length()));
-			V[1] += (pY / (pV.Length() * pV.Length()));
+			V[0] += (pX / pV.Length()); //1/r
+			V[1] += (pY / pV.Length()); //1/r
 		}
 	}
-
 	VSep = KSeparate * V;
 	thetad = atan2(VSep[1], VSep[0]);
 	vd = VSep.Length();
@@ -450,7 +472,7 @@ Below is the code I implemented for *flocking*.
 *Leader Following* can be defined as "one or more [characters following] another moving characters designated as the leader," ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)).
 
 
-Typically the agents need to stay clear of the leader's path without crowding or getting in front of the leader ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Additionally, these follwer dont want to bump into each other as well. 
+Typically the agents need to stay clear of the leader's path without crowding or getting in front of the leader ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)). Additionally, these follwer dont want to bump into each other as well.
 
 ![](images/leader.png?raw=true)
 
@@ -475,18 +497,18 @@ Below is the code I implemented for *leader following*.
 		pV = vec2(pX, pY);
 
 		tmp = pV - GPos;
+		vd = tmp.Length()*KArrival;
+		Truncate(vd, 0, MaxVelocity);
 		tmp.Normalize();
 		thetad = atan2(tmp[1], tmp[0]);
-		vd = MaxVelocity;
 		return vec2(cos(thetad)*vd, sin(thetad)*vd);
 
 		tmp = agents[0]->GPos - GPos;
 		vec2 s = Separation();
-		vec2 a = Arrival();
 	}
 	return tmp;
 
-To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over alignment in the Study Group on 4/24/2017. I altered the code we went over after the study group becuse the leader following did not work at all using the code from the study group. To try and rework the code I used Shijingliu (2014) as an example. I used this information to figure out how to designate the leader. Then I coded the leader to seak the target. I then coded the remaining agents to seek the leader (using the leader's X and Y coordinates) and then follow behing the leader by one body length. Then I called the separation and arrival functions as instructed by Kider ([2017g](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)). I did not implement the rectangle in front of the leader as described by Reynolds ([1999](http://www.red3d.com/cwr/steer/gdc99/)) but with the agents seeking the leader, it seemed redundant.
+To view the notes associated with this code, please view the Agent.cpp file. I ommitted the notes for readability. We went over alignment in the Study Group on 4/24/2017. I altered the code we went over after the study group becuse the leader following did not work at all using the code from the study group. To try and rework the code I used Shijingliu (2014) as an example. I used this information to figure out how to designate the leader. Then I coded the leader to seak the target. I then coded the remaining agents to arrive at the leader (using the leader's X and Y coordinates) and then follow behing the leader by one body length. Then I called the separation functions as instructed by Kider ([2017g](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?module_item_id=10573471)). However, I dont think the separation function is working in the code.
 
 
 #### Other Group Behaviors Include:
@@ -503,13 +525,20 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 ### 2.b) Create a Maze
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=8ESffmzlObc" target="_blank"><img src="http://img.youtube.com/vi/8ESffmzlObc/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
-^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=8ESffmzlObc)*
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=dT9LYcIQwr0" target="_blank"><img src="http://img.youtube.com/vi/dT9LYcIQwr0/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=dT9LYcIQwr0)*
 
 #### A Little Bit of Fun!
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=8ESffmzlObc" target="_blank"><img src="http://img.youtube.com/vi/8ESffmzlObc/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
-^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=8ESffmzlObc)*
+**TARDIS MAZE PART 1**
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=LXLwLjtsjPA" target="_blank"><img src="http://img.youtube.com/vi/LXLwLjtsjPA/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=LXLwLjtsjPA)*
+
+**TARDIS MAZE PART 2**
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Qs1yJ3Jczt4" target="_blank"><img src="http://img.youtube.com/vi/Qs1yJ3Jczt4/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=Qs1yJ3Jczt4)*
 
 *Here is where some of the boids behaviors can be seen*
 
@@ -519,12 +548,30 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 
 **Research Question:** If students enter the Library at a discrete uniform random interarrival rate and there is about a 1/3 chance that students will get coffee before they study, how many students will get coffee at Java City?
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=8ESffmzlObc" target="_blank"><img src="http://img.youtube.com/vi/8ESffmzlObc/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
-^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=8ESffmzlObc)*
+![](images/library.png?raw=true)
+
+[Source](https://library.ucf.edu/maps/)
+
+**UCF Library PART 1**
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=LXLwLjtsjPA" target="_blank"><img src="http://img.youtube.com/vi/LXLwLjtsjPA/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=LXLwLjtsjPA)*
+
+**UCF Library PART 2**
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Qs1yJ3Jczt4" target="_blank"><img src="http://img.youtube.com/vi/Qs1yJ3Jczt4/0.jpg" alt="Anylogic" width="850" height="490" border="1" /></a>
+^^click me^^ *If that doesn't work click [here](https://www.youtube.com/watch?v=Qs1yJ3Jczt4)*
+
 
 ## Future Work
 
+* I found a [link](* https://runthemodel.com/models/204/) that specifically calls out Boids in AnyLogic. I wasnt able to run the model they posted because I didnt have the right software but if given more time I would have liked to see how this source implemented Boids and build that into my anylogic model.
 
+* I would also have liked to compare multiple runs but in order to use this feature I would either need to output multple instances and save them as seperate files (I would if I had more time to finish) or to purchase the professional version of AnyLogic
+
+* I would like to study the "control" code a bit more. It was unclear to me how that fit in. I believe it is to make sure the change in movement is smooth
+
+* I would have like to researched more about the varying types of agent-based simulation and compared them here
 
 ## References
 
@@ -596,7 +643,3 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 * http://www.red3d.com/cwr/steer/
 * http://www.red3d.com/cwr/boids/
 * Different method for Avoid - http://www.red3d.com/cwr/nobump/nobump.html
-
-
-## To Read/Review
-* https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-path-following--gamedev-8769
