@@ -467,7 +467,7 @@ Below is the code I implemented for *flocking*.
 	vec2 c = Cohesion();
 	return tmp;
 
-#### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?![](images/alignment.gif?raw=true)
+#### [Leader Following](https://webcourses.ucf.edu/courses/1246518/pages/flocking-and-leader-following?
 
 *Leader Following* can be defined as "one or more [characters following] another moving characters designated as the leader," ([Reynolds, 1999](http://www.red3d.com/cwr/steer/gdc99/)).
 
@@ -547,10 +547,6 @@ To view the notes associated with this code, please view the Agent.cpp file. I o
 **Model:** UCF Library Main Floor
 
 **Research Question:** If students enter the Library at a discrete uniform random interarrival rate and there is about a 1/3 chance that students will get coffee before they study, how many students will get coffee at Java City?
-
-![](images/library.png?raw=true)
-
-[Source](https://library.ucf.edu/maps/)
 
 **UCF Library PART 1**
 
